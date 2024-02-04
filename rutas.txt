@@ -1,0 +1,53 @@
+rutas para las peticiones: 
+
+/api/users/updatePassword
+/api/users/updateUsername
+/api/users/updateEmail
+
+/api/users/delete
+--> id
+--> alertar al usuario que se borrarán sus notas y sus categorias.
+
+/auth/register
+--> username, email, password
+--> se registra el nuevo usuario y se ingresa directo a la app.
+
+/auth/login
+--> username, password
+
+/api/priorities/getAllPriorities
+
+/api/categories/getAllCategories
+--> id
+
+/api/categories/deleteCategory
+--> id, name
+--> alertar al usuario que se borrarán todas las notas que estaban en la categoria.
+
+/api/categories/updateCategoryName
+--> id, oldName, newName
+
+/api/categories/createCategory
+--> id, name
+
+/api/notes/getAllNotes
+--> id
+
+/api/notes/deleteNote
+--> id, noteID
+
+/api/notes/createNote
+--> id, title, description
+
+/api/notes/updateNoteCategory
+--> id, noteID, newCategoryID
+
+/api/notes/updateNoteTitle
+--> id, noteID, newTitle
+
+/api/notes/updateNoteDescription
+--> id, noteID, newDescription
+
+/api/notes/updateNotePriority
+--> id, noteID, newPriorityID
+

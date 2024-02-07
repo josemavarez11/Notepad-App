@@ -1,28 +1,47 @@
-import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import note from "../../../../data/note";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+// import note from "../../../../data/note";
 
 const Note = () => {
+    const [info, setInfo] = useState([]);
+
+    // Mientras tanto...
+    const id = "65bea73e0455a3ba7c1fe7d8";
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes?id=${id}`);
+            const info = await response.json();
+            setInfo(info);
+            console.log(info)
+        }
+        fetchData();
+    }, []);
+
     return (
         <FlatList
-            data={note}
-            renderItem={({ item }) => (
+            data={info}
+            renderItem={({ item: info}) => (
                 <View style={style.contentMax}>
-                <View style={style.contentNote}>
-                    <View key={item.id} style={style.note}>
-                        <View style={style.circle}></View>
-                        <View>
-                            <Text style={{ color: "#E97451" }}>{item.title}</Text>
-                            <Text style={{ color: "rgba(233,116,81,0.6)" }}> 186 Character</Text>
+                    <View style={style.contentNote}>
+                        <View key={info.id} style={style.note}>
+                            <View style={style.circle}>
+                                <Image
+                                    style={style.image}
+                                    source={require('../../../../assets/note.png')}
+                                />
+                            </View>
+                            <View>
+                                <Text style={{ color: "#E97451" }}>{info.title}</Text>
+                                <Text style={{ color: "rgba(233,116,81,0.6)" }}> 186 Character</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-                </View>
             )}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={{height: "100%"}}
+            showsVerticalScrollIndicator={false}r
+            style={{ height: "100%" }}
         />
     );
 };
@@ -49,15 +68,19 @@ const style = StyleSheet.create({
         width: 53,
         height: 53,
         borderRadius: 62,
-        backgroundColor: "#E97451",
+        backgroundColor: "#FAE0C6",
         marginRight: 15,
         marginLeft: 7,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
-    // scroll:{
-    //     marginBottom: 100
-    // },
-    contentMax:{
+    contentMax: {
         marginBottom: 10,
+    },
+    image: {
+        height: 26,
+        width: 26,
     }
 });
 

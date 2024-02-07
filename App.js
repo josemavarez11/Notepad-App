@@ -5,9 +5,17 @@ import Navigation from './Navigation';
 
 export default function App() {
   return (
-    //   <Login />
+      // <Login />
     // <Register />
-    <Navigation/>
+    <Navigation />
+
+    //  Que ya funciona lo de los input
+    // Si 
+    // Y lo de los iconos
+    // Y valida lo del gmail 
+    // Y no se ve la clave 
+    // si
+    //  Dice que se necesita un correo valido
   );
 }
 

@@ -27,7 +27,9 @@ const MyStack = () => {
             <ProfileStack.Screen
             name="Profile Screen"
             component={Profile}
-            options={{ headerShown: false }}
+            options={{ 
+                headerShown: false 
+            }}
             />
             <ProfileStack.Screen 
             name="Theme" 

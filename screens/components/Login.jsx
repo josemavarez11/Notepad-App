@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
 import Fercho from "./Fercho.js";
+// import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    // const navigation = useNavigation();
 
     const handleClick = async (e) => {
         (e).preventDefault();
@@ -14,6 +17,7 @@ const Login = () => {
             username,
             password,
         }
+        // navigation.navigate('NotePage');
 
         const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin });
         console.log(response);
@@ -47,12 +51,17 @@ const Login = () => {
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setUsername(e)}
+                    minLength={5}
+                    maxLength={10}
                 />
                 <TextInput 
                     placeholder="Password" 
+                    secureTextEntry={true}
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setPassword(e)}
+                    minLength={8}
+                    maxLength={20}
                 />
                 <TouchableOpacity style={styles.buttons} onPress={handleClick}>
                     <Text style={styles.btnText}>Login</Text>

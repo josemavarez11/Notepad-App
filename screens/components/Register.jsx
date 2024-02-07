@@ -9,7 +9,27 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
+    const handleValidation = () => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if(username.length < 5){
+            Alert.alert("Username must be at least 5 characters");
+            return false;
+        }
+        if(emailRegex.test(email) === false){
+            Alert.alert("Invalid email");
+            return false;
+        }
+        if(password.length < 8){
+            Alert.alert("Password must be at least 8 characters");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     const handleClick = async (e) =>  {
+
         (e).preventDefault();
         const endpoint = '/auth/register';
         const body = {
@@ -48,20 +68,27 @@ const Register = () => {
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'} 
                     onChangeText={e => setUsername(e)}
+                    minLength={5}
+                    maxLength={10}
                 />
                 <TextInput 
                     placeholder="Email" 
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'} 
                     onChangeText={e => setEmail(e)}
+                    minLength={10}
+                    maxLength={25}
                 />
                 <TextInput 
                     placeholder="Password" 
+                    secureTextEntry={true}
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setPassword(e)}
+                    minLength={8}
+                    maxLength={20}
                 />
-                <TouchableOpacity style={styles.buttonsS} onPress={handleClick}>
+                <TouchableOpacity style={styles.buttonsS} onPress={handleValidation}>
                     <Text style={styles.btnTextS}>Sign up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonsL} onPress={Alert}>

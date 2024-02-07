@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput} from "react-native";
+import { View, Text, StyleSheet, TextInput, Image} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
 
@@ -43,12 +43,51 @@ const style = StyleSheet.create({
     content:{
         display: "flex",
         flexDirection: "column",
-        marginBottom: Constants.statusBarHeight
+        marginBottom: Constants.statusBarHeight + 100
     },
     contentBar:{
         marginBottom: 30,
     
     },
-})
+    contentNote: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    note: {
+        backgroundColor: "#FAF0E8",
+        width: 360,
+        height: 70,
+        borderRadius: 15,
+        padding: 5,
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "row",
+    },
+    circle: {
+        width: 53,
+        height: 53,
+        borderRadius: 62,
+        backgroundColor: "#FAE0C6",
+        marginRight: 15,
+        marginLeft: 7,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    // scroll:{
+    //     marginBottom: 100
+    // },
+    contentMax:{
+        marginBottom: 10,
+    },
+    image:{
+        height:26,
+        width:26,
+        // backgroundColor: "white"
+    }
+});
 
 export default NotePage;

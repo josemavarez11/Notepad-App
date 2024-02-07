@@ -1,19 +1,36 @@
 import React from "react";
-import  Constants  from "expo-constants";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import note from "../../../../data/note";
+import { useState, useEffect } from "react";
+import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+
 
 const Group = () =>{
+    const [info, setInfo] = useState([]);
+
+    // Mientras tanto...
+    const id = "65bea272875d3fc8b5de3d55";
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories?id=${id}`);
+            const info = await response.json();
+            setInfo(info);
+            console.log(info)
+        }
+        fetchData();
+    }, []);
     return (
         <FlatList
-            data={note}
-            renderItem={({ item }) => (
+            data={info}
+            renderItem={({ item: info }) => (
                 <View style={style.contentMax}>
                     <View style={style.contentNote}>
-                        <View key={item.id} style={style.note}>
-                            <View style={style.circle}></View>
+                        <View key={info.id} style={style.note}>
+                            <View style={style.circle}>
+                                <Image
+                                source={require('../../../../assets/icon-group.png')}
+                                />
+                            </View>
                             <View>
-                                <Text style={{color: "#E97451"}}>{item.title}</Text>
+                                <Text style={{color: "#E97451"}}>{info.name}</Text>
                                 <Text style={{color:"rgba(233,116,81,0.6)"}}> 186 Character</Text>
                             </View>
                         </View>
@@ -37,7 +54,6 @@ const style = StyleSheet.create({
     contentNote:{
         flex: 1,
         justifyContent: "space-around",
-        // marginTop: 30,
     },
     note:{
         backgroundColor: "black",
@@ -54,10 +70,17 @@ const style = StyleSheet.create({
         width: 53,
         height: 53,
         borderRadius: 62,
-        backgroundColor: "#E97451",
+        backgroundColor: "#FAE0C6",
         marginRight:15,
         marginLeft: 7,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
+    image:{
+        height:26,
+        width:26
+    }
 
 })
 

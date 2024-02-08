@@ -1,17 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Nav from "../Nav";
 
 
 
 const Profile = () =>{
     const n = useNavigation();
     return (
+
+        <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
         <View style={style.content}>
             <Text style={style.text}>Profile</Text>
 
             <View style={style.perfil}>
-                <View style={style.cicle}></View>
+                <View style={style.cicle}>
+                    <Image
+                    source={require("../../../assets/user-icon.png")}
+                    style={style.img}
+                    />
+                </View>
                     <View style={style.textContent}>
                         <Text style={style.Titletext}>Mario</Text>
                         <Text style={style.subTitletext}>Maracaibo, Venezuela</Text>
@@ -45,6 +53,8 @@ const Profile = () =>{
             >
                 <Text style={style.btnText}>Log Out</Text>
             </TouchableOpacity>
+        </View>
+        <Nav />
         </View>
     );
 }
@@ -90,6 +100,9 @@ const style = StyleSheet.create({
         backgroundColor: "#E97451",
         marginRight:15,
         marginLeft: 7,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
     perfil:{
         display: "flex",
@@ -114,6 +127,10 @@ const style = StyleSheet.create({
         fontSize: 15,
         color: "rgba(237, 179,129, 0.5)",
         fontWeight: "bold"
+    },
+    img:{
+        width:100,
+        height:100,
     }
 })
 

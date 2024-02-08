@@ -1,0 +1,16 @@
+-> Arreglar el Group od Notes 
+-> App Theme
+-> Delete Account
+-> Modificar el Log Out
+-> Crear Vista para el Grupo de notas
+-> Numero 1
+ -Darle padding al texto de la nota 
+ -Poner un contenedor editable
+ -Poner icono a la barra de navegacion
+ -Poner el contador de caracteres
+ -Quitar Direccion (Profile)
+ -Quitar el circulo de profile y dejar el icono solamente
+ -Quitar la opcion de APP THEME,  > Si tenemos tiempo!
+ -Btn de delete 
+ -Btn de crear
+ -Modal en edit Profile

@@ -1,29 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
 import Fercho from "./Fercho.js";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
+
+    const saveToken = async (token) =>{
+        await AsyncStorage.setItem("token" , token)
+    }
+
+    const handleValidacion = () =>{
+
+        if(username ==="" || password === ""){
+            Alert.alert("Error","You must fill all the fields",[{
+                text: "Ok",
+                onPress: () => console.log("Alert closed")
+            },
+            {
+                text: "Cancel",
+                
+            }])
+            return ;
+        }
+
+        if(username.length < 5){
+            Alert.alert("Username must be at least 5 characters");
+            return false;
+        }
+        if(password.length < 8){
+            Alert.alert("Password must be at least 8 characters");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
     const handleClick = async (e) => {
+
+        handleValidacion();
+        
         (e).preventDefault();
         const endpoint = '/auth/login';
         const bodyLogin = {
             username,
             password,
         }
-        // navigation.navigate('NotePage');
+        try {
+            const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin });
+            console.log(response.token);
+            await saveToken(response.token);
+            
+            navigation.navigate('NotePage');
+            // navigation.navigate('Profile');
+            // navigation.navigate('Group');
+            // navigation.navigate('Nav');
 
-        const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin });
-        console.log(response);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    useEffect(() =>{}, [])
+    useEffect(() =>{
+        const getToken = async () =>{
+            const token = await AsyncStorage.getItem("token");
+            setToken(token);
+            if(token){
+                // navigation.navigate('NotePage');
+            }
+        }
+        getToken();
+    }, [])
 
     return (
         <View style={styles.content}>
@@ -52,7 +107,7 @@ const Login = () => {
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setUsername(e)}
                     minLength={5}
-                    maxLength={10}
+                
                 />
                 <TextInput 
                     placeholder="Password" 
@@ -61,7 +116,7 @@ const Login = () => {
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setPassword(e)}
                     minLength={8}
-                    maxLength={20}
+                   
                 />
                 <TouchableOpacity style={styles.buttons} onPress={handleClick}>
                     <Text style={styles.btnText}>Login</Text>

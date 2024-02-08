@@ -13,7 +13,7 @@ const Group = () =>{
             const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories?id=${id}`);
             const info = await response.json();
             setInfo(info);
-            console.log(info)
+            // console.log(info)
         }
         fetchData();
     }, []);
@@ -29,9 +29,8 @@ const Group = () =>{
                                 source={require('../../../../assets/icon-group.png')}
                                 />
                             </View>
-                            <View>
+                            <View style={style.text}>
                                 <Text style={{color: "#E97451"}}>{info.name}</Text>
-                                <Text style={{color:"rgba(233,116,81,0.6)"}}> 186 Character</Text>
                             </View>
                         </View>
                     </View>
@@ -46,40 +45,47 @@ const Group = () =>{
 }
 
 const style = StyleSheet.create({
-    contentMax:{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-    },
+    // contentMax:{
+    //     display: "flex",
+    //     flexDirection: "row",
+    //     flexWrap: "wrap",
+    // },
     contentNote:{
-        flex: 1,
-        justifyContent: "space-around",
+        // flex: 1,
+        // justifyContent: "space-around",
+        marginTop: 20,
     },
     note:{
         backgroundColor: "black",
-        width: '48%',
-        height: 170,
+        width: 170,
+        height: 160,
         borderRadius: 15,
         display: "flex",
         justifyContent:"flex-start",
-        alignItems: "center",
-        flexDirection: "row",
-        marginBottom: 15,
+        alignItems: "flex-start",
+        flexDirection: "column",
+        gap: 15,
+        // marginTop: 50
+        marginLeft: 15,
     },
     circle:{
         width: 53,
         height: 53,
         borderRadius: 62,
         backgroundColor: "#FAE0C6",
-        marginRight:15,
-        marginLeft: 7,
+        marginLeft: 15,
+        marginTop: 15,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
     },
-    image:{
-        height:26,
-        width:26
+    text:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        gap: 5,
+        padding: 5,
     }
 
 })

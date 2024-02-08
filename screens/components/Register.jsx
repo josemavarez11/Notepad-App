@@ -2,15 +2,33 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Image} from "react-native";
 import Fercho from "./Fercho.js";
+import { useNavigation } from "@react-navigation/native";
+
 
 const Register = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
+
+    
+    const navigation = useNavigation();
 
     const handleValidation = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if(username ==="" || password === "" || email === "" || password2 === ""){
+            Alert.alert("Error","You must fill all the fields",[{
+                text: "Ok",
+                onPress: () => console.log("Alert closed")
+            },
+            {
+                text: "Cancel",
+                
+            }])
+            return ;
+        }
 
         if(username.length < 5){
             Alert.alert("Username must be at least 5 characters");
@@ -24,6 +42,8 @@ const Register = () => {
             Alert.alert("Password must be at least 8 characters");
             return false;
         }
+        if (password !== password2){
+            Alert.alert("Error","Passwords do not match");}
         else{
             return true;
         }
@@ -37,8 +57,15 @@ const Register = () => {
             password,
             email,
         }
-        
-        const response = await Fercho({ endpoint, method: 'POST', body });
+        try {
+            
+            const response = await Fercho({ endpoint, method: 'POST', body });
+            Alert.alert("Success" ,"Account created successfully")
+            navigation.navigate('Login');
+        } catch (error) {
+            console.log(error.data)
+        }    
+    
         console.log(response);
     }
 
@@ -88,10 +115,19 @@ const Register = () => {
                     minLength={8}
                     maxLength={20}
                 />
+                  <TextInput 
+                    placeholder="Confirm Password" 
+                    secureTextEntry={true}
+                    style={styles.input} 
+                    placeholderTextColor={'#EB9373'}
+                    onChangeText={e => setPassword2(e)}
+                    minLength={8}
+                    maxLength={20}
+                />
                 <TouchableOpacity style={styles.buttonsS} onPress={handleValidation}>
                     <Text style={styles.btnTextS}>Sign up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonsL} onPress={Alert}>
+                <TouchableOpacity style={styles.buttonsL} onPress={async() =>{await navigation.navigate("Login")}}>
                     <Text style={styles.btnTextL}>Login</Text>
                 </TouchableOpacity>
             </View>

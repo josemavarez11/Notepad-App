@@ -2,21 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, Image} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
+import Nav from "../../Nav";
 
 const NotePage = () =>{
     return (
-        <View>
+        <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
             <Text style={style.text}>Notes</Text>
             <View style={style.content}>
                 <View style={style.contentBar}>
-                    <TextInput 
-                        placeholder="Search . . ." 
-                        style={style.input} 
-                        placeholderTextColor={'rgba(233,116,81,0.5)'}
-                    />
                 </View>
                     <Note />
+                    <Nav />
             </View>
+            
         </View>
     )
 }
@@ -43,7 +41,7 @@ const style = StyleSheet.create({
     content:{
         display: "flex",
         flexDirection: "column",
-        marginBottom: Constants.statusBarHeight + 100
+        marginBottom: Constants.statusBarHeight + 150
     },
     contentBar:{
         marginBottom: 30,

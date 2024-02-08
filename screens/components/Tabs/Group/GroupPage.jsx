@@ -2,21 +2,23 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput} from "react-native";
 import Group from "./Group";
 import Constants  from "expo-constants";
+import Nav from "../../Nav";
 
 const GroupPage = () =>{
     return (
-        <View>
-            <Text style={style.text}>GroupPage</Text>
+        <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
+            <Text style={style.text}>Group of Notes</Text>
             <View style={style.content}>
-                <View style={style.contentBar}>
-                    <TextInput 
-                        placeholder="Search . . ." 
-                        style={style.input} 
-                        placeholderTextColor={'rgba(233,116,81,0.5)'}
-                    />
-                </View>
+                
+                <View>
                     <Group />
+                </View>   
             </View>
+
+            <View style={style.Nav}>
+                <Nav />
+            </View>
+
         </View>
     )
 }
@@ -30,24 +32,21 @@ const style = StyleSheet.create({
         color:"#E97451",
         fontWeight: "bold"
     },
-    input:{
-        backgroundColor: "rgba(237, 179,129, 0.4)",
-        width: 327,
-        height: 45,
-        alignSelf: "center",
-        borderRadius: 10,
-        marginTop: 20,
-        paddingLeft: 10,
-        fontSize: 20
-    },
     content:{
-        display: "flex",
-        flexDirection: "column",
-        marginBottom: Constants.statusBarHeight + 30
+        height: "100%",
+        backgroundColor: "rgba(255,255,255,0.8)"
+        // display: "flex",
+        // flexDirection: "row",
+        // marginBottom: Constants.statusBarHeight + 150
+        
     },
-    contentBar:{
-        marginBottom: 20,
-    },
+    Nav:{
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        // marginBottom: 2,
+        // marginLeft: 55,
+    }
 })
 
 export default GroupPage;

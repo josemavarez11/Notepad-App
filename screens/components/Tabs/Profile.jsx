@@ -14,24 +14,16 @@ const Profile = () =>{
             <Text style={style.text}>Profile</Text>
 
             <View style={style.perfil}>
-                <View style={style.cicle}>
+               
                     <Image
                     source={require("../../../assets/user-icon.png")}
                     style={style.img}
                     />
-                </View>
+                
                     <View style={style.textContent}>
                         <Text style={style.Titletext}>Mario</Text>
-                        <Text style={style.subTitletext}>Maracaibo, Venezuela</Text>
                     </View>
             </View>
-
-            <TouchableOpacity
-            onPress={() => n.navigate("Theme")}
-            style={style.btn}
-            >
-                <Text style={style.btnText}>App Theme</Text>
-            </TouchableOpacity>
 
             <TouchableOpacity
             onPress={() => n.navigate("Edit Profile")}

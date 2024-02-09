@@ -3,11 +3,22 @@ import { View, Text, StyleSheet, TextInput, Image} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
+import { TouchableOpacity } from "react-native-web";
 
 const NotePage = () =>{
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
-            <Text style={style.text}>Notes</Text>
+            <View style={style.contentBtn}>
+                <TouchableOpacity
+                    value="Create"
+                >
+                    {/* <Text style={style.text}>Create</Text> */}
+                </TouchableOpacity>
+            
+                <Text style={style.text}>Notes</Text>
+                
+            </View>
+         
             <View style={style.content}>
                 <View style={style.contentBar}>
                 </View>
@@ -24,9 +35,12 @@ const style = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         marginTop: "10%",
-        marginLeft: "60%",
+        // marginLeft: "60%",
+        // padding: 10,
         color:"#E97451",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        // marginRight: 150
+        // gap: 30
     },
     input:{
         backgroundColor: "rgba(237, 179,129, 0.4)",
@@ -61,7 +75,7 @@ const style = StyleSheet.create({
         padding: 5,
         display: "flex",
         justifyContent: "flex-start",
-        alignItems: "center",
+        alignItems: "flex-start",
         flexDirection: "row",
     },
     circle: {
@@ -85,6 +99,16 @@ const style = StyleSheet.create({
         height:26,
         width:26,
         // backgroundColor: "white"
+    },
+    contentBtn:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "flex-start",
+        // marginTop: 20,
+        // marginBottom: 20,
+        backgroundColor: "red",
+        gap: 200,
     }
 });
 

@@ -62,6 +62,7 @@ const Note = () => {
                             </View>
                         </View>
                     </View>
+                    
                 </View>
             )}
             keyExtractor={(item) => item.name}

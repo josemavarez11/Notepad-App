@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native";
+import {Text, View, StyleSheet, TouchableOpacity, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Nav = () =>{
@@ -11,21 +11,27 @@ const Nav = () =>{
             style={style.btn}
             onPress={() => navigation.navigate("Group")}
             >
-                <Text style={style.text}>Group</Text>
+                <Image
+                source={require("../../assets/nav-group.png")}
+                />
             </TouchableOpacity>
 
             <TouchableOpacity
             style={style.btn}
             onPress={() => navigation.navigate("NotePage")}
             >
-                <Text style={style.text}>Note</Text>
+               <Image
+               source={require("../../assets/icon-note.png")}
+               />
             </TouchableOpacity>
 
             <TouchableOpacity
             style={style.btn}
             onPress={() => navigation.navigate("Profile")}
             >
-                <Text style={style.text}>Profile</Text>
+                  <Image
+               source={require("../../assets/profile-icon.png")}
+               />
             </TouchableOpacity>
 
         </View>

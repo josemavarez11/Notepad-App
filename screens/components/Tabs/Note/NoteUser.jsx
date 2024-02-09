@@ -3,6 +3,8 @@ import { View, Text, TextInput, StyleSheet} from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+
 const NotesUser = () =>{
     // const [info, setInfo] = useState([]);
     // const [idNote, setIdNote] = useState("");
@@ -31,21 +33,43 @@ const NotesUser = () =>{
     // },[])
     // const note = info.filter((note) => note._id == idNote);
 
+// 
 
-    return(
+const initialParagraph = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam eos, pariatur earum aliquam rerum nobis suscipit quae culpa, perferendis, iure enim impedit cupiditate necessitatibus a qui molestias sint officiis.';
+const maxCharacters = 250;
 
-            <View style={style.content}>
-                <View style={style.contentTitle}><Text style={style.text}>Title</Text></View>
-                <View style={style.contentText}>
-                    <Text style={style.info}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae culpa eius expedita, exercitationem cupiditate cum molestias, non veritatis dignissimos sit quasi dolorem. Temporibus itaque accusantium, excepturi perferendis harum consequuntur culpa?
-                    </Text>
-                </View>   
-            </View>
+const [note, setNote] = useState(initialParagraph);
 
+const handleTextChange = (text) => {
+  if (text.length <= maxCharacters) {
+    setNote(text);
+  }
+};
 
-    )
-}
+return (
+  <View style={style.content}>
+    <View style={style.contentTitle}>
+      <Text style={style.text}>Title</Text>
+    </View>
+    <View style={style.contentText}>
+      <TextInput
+        style={style.info}
+        placeholder="Escribe tu nota aquí"
+        multiline={true}
+        value={note}
+        onChangeText={handleTextChange}
+        keyboardType="default"
+        numberOfLines={10}
+      />
+
+      
+    </View>
+    <View style={{marginTop: 550}}>
+        <Text style={{color:'#E97451', fontWeight: "bold"}}>Caracteres: {note.length}/{maxCharacters}</Text>
+      </View>
+  </View>
+);
+};
 
 const style = StyleSheet.create({
     // container: {
@@ -75,19 +99,21 @@ const style = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        // backgroundColor: "red",   
         // backgroundColor: "red",
     },
     text:{
         fontSize: 30,
         color: "#E97451",
         fontWeight: "bold",
+
     },
     info:{
         fontSize: 20,
         color: "#E97451", 
         textAlign: "justify",
         // width: "80%",
-        padding: 15,
+        padding: 20,
     }
 })
 export default NotesUser;

@@ -79,10 +79,6 @@ const MyStack = () => {
             }}
             />
             <ProfileStack.Screen 
-            name="Theme" 
-            component={Theme} 
-            />
-            <ProfileStack.Screen 
             name="Edit Profile" 
             component={EditProfile} 
             options={{

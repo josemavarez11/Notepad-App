@@ -1,18 +1,22 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Image} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
-import { TouchableOpacity } from "react-native-web";
+
 
 const NotePage = () =>{
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
             <View style={style.contentBtn}>
                 <TouchableOpacity
-                    value="Create"
+                    // value="Create"
+                    style={style.btn}
+                    onPress={() => Alert.alert("Create")}
                 >
-                    {/* <Text style={style.text}>Create</Text> */}
+                    <Image
+                    source={require('../../../../assets/add-note.png')}
+                    />
                 </TouchableOpacity>
             
                 <Text style={style.text}>Notes</Text>
@@ -55,7 +59,8 @@ const style = StyleSheet.create({
     content:{
         display: "flex",
         flexDirection: "column",
-        marginBottom: Constants.statusBarHeight + 150
+        marginBottom: Constants.statusBarHeight + 150,
+        // gap: 20,
     },
     contentBar:{
         marginBottom: 30,
@@ -107,8 +112,19 @@ const style = StyleSheet.create({
         alignItems: "flex-start",
         // marginTop: 20,
         // marginBottom: 20,
-        backgroundColor: "red",
-        gap: 200,
+        // backgroundColor: "red",
+        gap: 150,
+    },
+    btn:{
+        backgroundColor: "#FAE0C6",
+        width: 60,
+        height: 40,
+        borderRadius: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 20,
+        marginTop: 40,
     }
 });
 

@@ -6,14 +6,20 @@ import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 const Group = () =>{
     const [info, setInfo] = useState([]);
 
-    // Mientras tanto...
-    const id = "65bea272875d3fc8b5de3d55";
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories?id=${id}`);
+        const fetchData = async () =>{
+            const token =  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2NzhmY2E4N2Y3YzYwYWUyZGY1YWQiLCJpYXQiOjE3MDc1MTY2NjUsImV4cCI6MTcwNzUyMDI2NX0.PyechLQ5DprV5W26sMtAJGL9gT4GLNbouLHtZ-GScuw'
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories`,{
+                method: 'GET',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                },
+            });
             const info = await response.json();
+            console.log(info)
             setInfo(info);
-            // console.log(info)
+            // console.log(response)
+
         }
         fetchData();
     }, []);
@@ -24,13 +30,13 @@ const Group = () =>{
                 <View style={style.contentMax}>
                     <View style={style.contentNote}>
                         <View key={info.id} style={style.note}>
-                            <View style={style.circle}>
+                        <View style={style.circle}>
                                 <Image
                                 source={require('../../../../assets/icon-group.png')}
                                 />
                             </View>
-                            <View style={style.text}>
-                                <Text style={{color: "#E97451"}}>{info.name}</Text>
+                            <View>
+                                <Text style={style.text}>{info.name}</Text>
                             </View>
                         </View>
                     </View>
@@ -45,47 +51,50 @@ const Group = () =>{
 }
 
 const style = StyleSheet.create({
-    // contentMax:{
-    //     display: "flex",
-    //     flexDirection: "row",
-    //     flexWrap: "wrap",
-    // },
     contentNote:{
-        // flex: 1,
-        // justifyContent: "space-around",
-        marginTop: 20,
+        display: "flex",
+        flexDirection: "column",
+        // justifyContent: "center",
+        // alignItems: "center",
+        gap: 10,
+        marginTop: 10
     },
     note:{
-        backgroundColor: "black",
-        width: 170,
+        backgroundColor: "#FAF0E8",
+        width: "90%",
         height: 160,
         borderRadius: 15,
         display: "flex",
         justifyContent:"flex-start",
         alignItems: "flex-start",
-        flexDirection: "column",
-        gap: 15,
+        flexDirection: "row",
+        gap: 45,
         // marginTop: 50
-        marginLeft: 15,
+        marginLeft: 20,
     },
     circle:{
-        width: 53,
-        height: 53,
+        width: 100,
+        height: 100,
         borderRadius: 62,
         backgroundColor: "#FAE0C6",
         marginLeft: 15,
-        marginTop: 15,
+        marginTop: 25,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
     },
     text:{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: 5,
-        padding: 5,
+        marginTop:70,
+        fontSize: 20,
+        color: "#E97451",
+        fontWeight: "bold",
+        // marginLeft: 10,
+        // display: "flex",
+        // justifyContent: "center",
+        // alignItems: "center",
+        // flexDirection: "column",
+        // gap: 5,
+        // padding: 5,
     }
 
 })

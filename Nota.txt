@@ -1,17 +1,4 @@
--> Arreglar el Group od Notes 
--> App Theme
--> Delete Account
--> Modificar el Log Out
--> Crear Vista para el Grupo de notas
--> Numero 1
-
-
-
-
-
-
- 
- -Btn de crear
- -Btn de delete 
-
- -Modal en edit Profile
+- Modal en edit Profile
+- Modificar el delete account 
+- Modificar Log Out
+- Terminar lo del token

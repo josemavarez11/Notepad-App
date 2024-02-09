@@ -1,11 +1,9 @@
-const Fercho = async ({ endpoint, method, body }) => {
+const Fercho = async ({ endpoint, method, body, headers }) => {
   const configPost = {
     method: "POST",
     credentials: "include",
     cors: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(body),
   };
 
@@ -13,9 +11,7 @@ const Fercho = async ({ endpoint, method, body }) => {
     method: "PUT",
     credentials: "include",
     cors: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(body),
   };
 

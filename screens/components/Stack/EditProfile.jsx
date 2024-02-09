@@ -5,28 +5,27 @@ const EditProfile = () =>{
     return (
         <View style={style.content}>
             <View style={style.perfil}>
-                <View style={style.cicle}>
+
                     <Image
                     source={require("../../../assets/user-icon.png")}
                     style={style.img}
                     />
-                </View>
+                
                 <View style={style.textContent}>
                         <Text style={style.Titletext}>Mario</Text>
                 </View>
             </View>
-        <TextInput style={style.input}
-        placeholderTextColor={'#EB9373'}
-        placeholder="new username"/>
 
-        <TextInput style={style.input}
-        placeholderTextColor={'#EB9373'}
-        placeholder="new email"/>
+        <TouchableOpacity style={style.btn}>
+            <Text style={style.text}>Username</Text>
+        </TouchableOpacity>
 
-        <TextInput style={style.input}
-        placeholderTextColor={'#EB9373'}
-        placeholder="new password"
-/>
+        <TouchableOpacity style={style.btn}>
+            <Text style={style.text}>Email</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={style.btn}>
+            <Text style={style.text}>Password</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={style.btn}>
             <Text style={style.text}>Save Changes</Text>
@@ -43,17 +42,7 @@ const style = StyleSheet.create({
         alignItems: "center",
         gap: 10
     },
-    cicle:{
-        width: 120,
-        height: 120,
-        borderRadius: 61,
-        backgroundColor: "#E97451",
-        marginRight:15,
-        marginLeft: 7,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
+
     textContent:{
         display: "flex",
         flexDirection: "column",
@@ -85,11 +74,11 @@ const style = StyleSheet.create({
         fontWeight: "bold",
     },
     btn:{
-        backgroundColor: "#E97451",
+        backgroundColor: "#EDB381",
         padding: 10,
-        marginTop: "20%",
-        width: 340,
-        height: 65,
+        marginTop: "10%",
+        width: 250,
+        height: 45,
         alignSelf: "center",
         borderRadius: 10,
         display: "flex",

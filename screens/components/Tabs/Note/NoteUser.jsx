@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet} from "react-native";
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, Alert} from "react-native";
 import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -8,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const NotesUser = () =>{
     // const [info, setInfo] = useState([]);
     // const [idNote, setIdNote] = useState("");
+    const navigation = useNavigation();
 
     // const IdNote = async() =>{
     //     const idNote = await AsyncStorage.getItem("idnote");
@@ -49,6 +51,13 @@ const handleTextChange = (text) => {
 return (
   <View style={style.content}>
     <View style={style.contentTitle}>
+      <TouchableOpacity
+      onPress={() => navigation.navigate('NotePage')}>
+      <Image
+      style={style.img}
+        source={require('../../../../assets/back.png')}
+      />
+      </TouchableOpacity>
       <Text style={style.text}>Title</Text>
     </View>
     <View style={style.contentText}>
@@ -91,7 +100,7 @@ const style = StyleSheet.create({
     },
     contentTitle:{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "flex-end",
         marginBottom: 40,
     },
@@ -99,8 +108,7 @@ const style = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "red",   
-        // backgroundColor: "red",
+
     },
     text:{
         fontSize: 30,
@@ -113,7 +121,10 @@ const style = StyleSheet.create({
         color: "#E97451", 
         textAlign: "justify",
         // width: "80%",
-        padding: 20,
+        padding: 40,
+    },
+    img:{
+      marginRight: 20,
     }
 })
 export default NotesUser;

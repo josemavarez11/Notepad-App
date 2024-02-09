@@ -13,9 +13,9 @@ const Login = () => {
 
     const navigation = useNavigation();
 
-    const saveToken = async (token) =>{
-        await AsyncStorage.setItem("token" , token)
-    }
+    // const saveToken = async (token) =>{
+    //     await AsyncStorage.setItem("token" , token)
+    // }
 
     const handleValidacion = () =>{
 
@@ -50,14 +50,17 @@ const Login = () => {
         
         (e).preventDefault();
         const endpoint = '/auth/login';
+        const headersLogin = {
+            'Content-Type': 'application/json',
+        }
         const bodyLogin = {
             username,
             password,
         }
         try {
-            const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin });
+            const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin, headers: headersLogin});
             console.log(response.token);
-            await saveToken(response.token);
+            // await saveToken(response.token);
             
             navigation.navigate('NotePage');
             // navigation.navigate('Profile');

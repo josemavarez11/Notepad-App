@@ -51,3 +51,4 @@ rutas para las peticiones:
 /api/notes/updateNotePriority
 --> id, noteID, newPriorityID
 
+cuando una peticon necesite el id del usuario, se lo voy a pasar por el headers, si paso varias cosas se las voy a pasar por el boy con el json 

@@ -10,7 +10,7 @@ const GroupPage = () =>{
             <Text style={style.text}>Group of Notes</Text>
             <View style={style.content}>
                 
-                <View>
+                <View style={style.contentGroup}>
                     <Group />
                 </View>   
             </View>
@@ -30,7 +30,8 @@ const style = StyleSheet.create({
         marginTop: "10%",
         marginLeft: "40%",
         color:"#E97451",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginBottom: 20
     },
     content:{
         height: "100%",
@@ -47,6 +48,7 @@ const style = StyleSheet.create({
         // marginBottom: 2,
         // marginLeft: 55,
     }
+
 })
 
 export default GroupPage;

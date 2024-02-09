@@ -1,39 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// import note from "../../../../data/note";
+import Fercho from "../../Fercho";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Note = () => {
     const [info, setInfo] = useState([]);
     const navigation = useNavigation();
-    const [token, setToken] = useState("");
+    // const [token, setToken] = useState("");
     // const [idnote, setIdnote] = useState("");
 
-    const getToken = async () =>{
-        const token = await AsyncStorage.getItem("token");
-        setToken(token);
+    // const getToken = async () =>{
+    //     const token = await AsyncStorage.getItem("token");
+    //     setToken(token);
+    // }
+
+    // const idSaveNote = async (id) =>{
+    //     const idNote = await AsyncStorage.setItem("idnote", id);
+    //     // setIdnote(id);
+    //     navigation.navigate("NotesUser")
+    // }
+
+    const createNote = async (data) => {
+        // Lógica para enviar la data a la API y crear una nueva nota
+        // Por ejemplo:
+        // const response = await fetch('https://example.com/api/notes', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`,
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // });
+        // const newNote = await response.json();
+        // Actualizar el estado 'info' con la nueva nota
+        // setInfo([...info, newNote]);
     }
 
-    const idSaveNote = async (id) =>{
-        const idNote = await AsyncStorage.setItem("idnote", id);
-        // setIdnote(id);
-        navigation.navigate("NotesUser")
+    const deleteNote = async (id) => {
+        // Lógica para enviar la solicitud de eliminación de la nota con el ID proporcionado a la API
+        // Por ejemplo:
+        // const response = await fetch(`https://example.com/api/notes/${id}`, {
+        //     method: 'DELETE',
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }
+        // });
+        // Verificar la respuesta y actualizar el estado 'info' eliminando la nota con el ID proporcionado
+        // setInfo(info.filter(note => note.id !== id));
     }
 
 
-    // Mientras tanto...
-    const id = "65bea73e0455a3ba7c1fe7d8";
+    // // Mientras tanto...
+    // const id = "65b678fca87f7c60ae2df5ad";
     
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes?id=${id}`);
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2NzhmY2E4N2Y3YzYwYWUyZGY1YWQiLCJpYXQiOjE3MDc1MTY2NjUsImV4cCI6MTcwNzUyMDI2NX0.PyechLQ5DprV5W26sMtAJGL9gT4GLNbouLHtZ-GScuw'
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes`, {
+                method: 'GET',
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                }
+            });
             const info = await response.json();
-            setInfo(info);
             // console.log(info)
+            setInfo(info);
         }
-        getToken();
+        // getToken();
         fetchData();
     }, []);
 
@@ -41,10 +75,11 @@ const Note = () => {
         <FlatList
             data={info}
             renderItem={({ item: info}) => (
-                <View style={style.contentMax}>
+               
                     
                     <View style={style.contentNote}>
                         <View key={info.id} style={style.note}>
+
                             <View style={style.circle}>
                                 <Image
                                     style={style.image}
@@ -52,18 +87,29 @@ const Note = () => {
                                 />
                             </View>
 
-                            <View>
+                            <View style={style.contentBtn}>
                                 <TouchableOpacity
-                                onPress={() => idSaveNote(info.id)}
+                                onPress={() => navigation.navigate("NotesUser")}
                                 >
-                                <Text style={{ color: "#E97451" }}>{info.title}</Text>
-                                <Text style={{ color: "rgba(233,116,81,0.6)" }}> 186 Character</Text>
+                                <Text style={{ color: "#E97451"}}>{info.title}</Text>
                                </TouchableOpacity>
+
+                                {/* Boton de delete */}
                             </View>
+                            <View style={style.button}>
+                                <TouchableOpacity
+                                style={style.btn}
+                                onPress={() => Alert.alert("Delete")}
+                                >
+                                <Image
+                                style={{color:  "red"}}
+                                    source={require('../../../../assets/delete-icon.png')}
+                                    />
+                                </TouchableOpacity>
+                               </View>
                         </View>
                     </View>
                     
-                </View>
             )}
             keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
@@ -79,13 +125,14 @@ const style = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: 10,
     },
     note: {
         backgroundColor: "#FAF0E8",
         width: 360,
         height: 70,
         borderRadius: 15,
-        padding: 5,
+        // padding: 5,
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -102,12 +149,34 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    contentMax: {
-        marginBottom: 10,
-    },
     image: {
         height: 26,
         width: 26,
+    },
+    btn:{
+        // marginLeft: 30,
+        // backgroundColor: "red",
+        // width: 40,
+        // height: 40,
+        // position: "relative",
+    },
+    contentBtn:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        // backgroundColor: "blue",
+        marginRight: 20,
+    },
+    button:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        // backgroundColor: "red",
+        position: "absolute",
+        right: 0,
+        marginRight: 20,
     }
 });
 

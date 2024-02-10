@@ -12,12 +12,13 @@ const LogOut = () =>{
     }
 
     return (
-        <View style={style.content}>
+        <View style={style.contentNote}>
+            <Text style={style.text}>Are you sure you want to sign out?</Text>
             <TouchableOpacity
-            style={style.btn}
-            onPress={removeToken}
+                style={style.btn}
+                onPress={() => removeToken()}
             >
-                <Text style={{color:'#ffffff', fontWeight: "bold"}}>Log Out</Text>
+                <Text style={style.textt}>Log out</Text>
             </TouchableOpacity>
         </View>
     );
@@ -25,23 +26,35 @@ const LogOut = () =>{
 
 
 const style = StyleSheet.create({
-    btn:{
-        backgroundColor: "#E97451",
-        width: 200,
-        height: 80,
-        borderRadius: 10,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-        marginTop: 50
-    },
-    content:{
+    contentNote: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 200
+        gap: 30,
+        marginTop: 50
     },
+    text:{
+        fontSize: 15,
+        color: "red",
+        fontWeight: "bold",
+        textAlign: "center",
+        width: "80%",
+    },
+    btn:{
+        width: "80%",
+        height: 55,
+        borderRadius: 15,
+        backgroundColor: "#EB9373",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    textt:{
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold"
+    }
 })
+
 export default LogOut

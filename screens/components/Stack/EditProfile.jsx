@@ -1,7 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity, Image, Modal, TextInput} from "react-native";
+import {useState, useEffect} from "react";
 
 const EditProfile = () =>{
+    const [viewUser, setViewUser] = useState(false);
+    const [viewEmail, setViewEmail] = useState(false);
+    const [viewPassword, setViewPassword] = useState(false);
+
     return (
         <View style={style.content}>
             <View style={style.perfil}>
@@ -16,21 +21,174 @@ const EditProfile = () =>{
                 </View>
             </View>
 
-        <TouchableOpacity style={style.btn}>
+
+{/* Modal de Username */}
+        <TouchableOpacity 
+        style={style.btn}
+        onPress={() => setViewUser(true)}
+        >
             <Text style={style.text}>Username</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={style.btn}>
+        <Modal
+            animationType="slide"
+            onDismiss={() => console.log("close")}
+            onShow={() => console.log("show")}
+            transparent
+            visible={viewUser}
+        >
+            <View
+                style={{flex: 1, backgroundColor: "rgba(1,1,1, 0.5)", justifyContent: "center", alignItems: "center"}}
+            >
+
+                <View
+                    style={{height: "30%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                >
+                    <TextInput 
+                    placeholder="New Username" 
+                    style={style.input} 
+                    placeholderTextColor={'#EB9373'}
+                    onChangeText={() => console.log("change")}
+                    minLength={5}
+                />
+
+                    <TouchableOpacity
+                    style={style.btn}
+                    onPress={() => setViewUser(false)}
+                    >
+                        <Text style={style.textt}>Save</Text>
+                    </TouchableOpacity>
+
+                    <View
+                        style={{
+                            height: 45,
+                            width: "100%",
+                            flexDirection: "row",
+                            alignItems: "flex-end",
+                            justifyContent: "center"
+                        }}
+                    >
+                    </View>
+                </View>
+            </View>
+        </Modal>
+{/* Modal de Username */}
+
+
+{/* Modal de Email */}
+
+        <TouchableOpacity style={style.btn}
+        onPress={() => setViewEmail(true)}>
             <Text style={style.text}>Email</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={style.btn}>
+
+        <Modal
+            animationType="slide"
+            onDismiss={() => console.log("close")}
+            onShow={() => console.log("show")}
+            transparent
+            visible={viewEmail}
+        >
+            <View
+                style={{flex: 1, backgroundColor: "rgba(1,1,1, 0.5)", justifyContent: "center", alignItems: "center"}}
+            >
+
+                <View
+                    style={{height: "30%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                >
+                    <TextInput 
+                    placeholder="New Email" 
+                    style={style.input} 
+                    placeholderTextColor={'#EB9373'}
+                    onChangeText={() => console.log("change")}
+                    minLength={5}
+                />
+
+                    <TouchableOpacity
+                    style={style.btn}
+                    onPress={() => setViewEmail(false)}
+                    >
+                        <Text style={style.textt}>Save</Text>
+                    </TouchableOpacity>
+
+                    <View
+                        style={{
+                            height: 45,
+                            width: "100%",
+                            flexDirection: "row",
+                            alignItems: "flex-end",
+                            justifyContent: "center"
+                        }}
+                    >
+                    </View>
+                </View>
+            </View>
+        </Modal>
+
+{/* Modal de Email */}
+
+{/* Modal de Password */}
+        <TouchableOpacity style={style.btn}
+        onPress={() => setViewPassword(true)}
+        >
             <Text style={style.text}>Password</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={style.btn}>
             <Text style={style.text}>Save Changes</Text>
         </TouchableOpacity>
-        </View>
+
+        <Modal
+            animationType="slide"
+            onDismiss={() => console.log("close")}
+            onShow={() => console.log("show")}
+            transparent
+            visible={viewPassword}
+        >
+            <View
+                style={{flex: 1, backgroundColor: "rgba(1,1,1, 0.5)", justifyContent: "center", alignItems: "center"}}
+            >
+
+                <View
+                    style={{height: "30%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                >
+                    <TextInput 
+                    placeholder="New Password" 
+                    style={style.input} 
+                    placeholderTextColor={'#EB9373'}
+                    onChangeText={() => console.log("change")}
+                    minLength={5}
+                />
+
+                    <TouchableOpacity
+                    style={style.btn}
+                    onPress={() => setViewPassword(false)}
+                    >
+                        <Text style={style.textt}>Save</Text>
+                    </TouchableOpacity>
+
+                    <View
+                        style={{
+                            height: 45,
+                            width: "100%",
+                            flexDirection: "row",
+                            alignItems: "flex-end",
+                            justifyContent: "center"
+                        }}
+                    >
+                    </View>
+                </View>
+            </View>
+        </Modal>
+
+{/* Modal de Password */}
+
+
+
+</View>
+
+
+
     );
 }
 
@@ -61,17 +219,17 @@ const style = StyleSheet.create({
         flexDirection: "column",
     },
     input:{
-        width: 290,
-        height: 65,
-        backgroundColor: "#FFD1A3",
-        borderRadius: 10,
-        padding: 10,
-        marginTop: 30,
-        alignSelf: "center",
-        marginRight: 30,
-        marginBottom:20,
+        width: "80%",
+        height: 55,
+        borderWidth: 1,
+        borderColor: "black",
+        margin: 10,
+        paddingLeft: 20,
+        borderRadius: 15,
+        borderColor: "#F2C3B2",
+        fontSize: 18,
         color: "#E97451",
-        fontWeight: "bold",
+        marginTop: "20%"
     },
     btn:{
         backgroundColor: "#EDB381",
@@ -94,6 +252,11 @@ const style = StyleSheet.create({
     img:{
         width: 80,
         height: 80,
+    },
+    textt:{
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold"
     }
 })
 

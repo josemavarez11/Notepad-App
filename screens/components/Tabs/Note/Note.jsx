@@ -56,7 +56,7 @@ const Note = () => {
     
     useEffect(() => {
         const fetchData = async () => {
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2NzhmY2E4N2Y3YzYwYWUyZGY1YWQiLCJpYXQiOjE3MDc1MTY2NjUsImV4cCI6MTcwNzUyMDI2NX0.PyechLQ5DprV5W26sMtAJGL9gT4GLNbouLHtZ-GScuw'
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2NzhmY2E4N2Y3YzYwYWUyZGY1YWQiLCJpYXQiOjE3MDc1MzA4OTgsImV4cCI6MTcwNzUzNDQ5OH0.ujMkNGtewegtPSizU3szWBrk3MonXYLY3O5SriwSdzM'
             const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes`, {
                 method: 'GET',
                 headers: {

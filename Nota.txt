@@ -1,4 +1,11 @@
-- Modal en edit Profile
-- Modificar el delete account 
-- Modificar Log Out
+// Misael Reverol
 - Terminar lo del token
+- Renderizar la info de las notas en donde van
+- Actualizar el perfil
+- Borrar cuenta
+- Cuando toque un grupo de notas que me redireccione para las notas que estan en ese grupo
+- Editar la nota
+
+// Jose Mavarez
+- Metodo de crear 
+- Metodo de eliminar

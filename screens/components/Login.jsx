@@ -39,6 +39,18 @@ const Login = () => {
             Alert.alert("Password must be at least 8 characters");
             return false;
         }
+        if(password === ''){
+            Alert.alert("Password is required");
+            return false;
+        }
+        if(username === ''){
+            Alert.alert("Username is required");
+            return false;
+        }
+        if(username === '' && password === ''){
+            Alert.alert("Username and password are required");
+            return false;
+        }
         else{
             return true;
         }
@@ -154,11 +166,13 @@ const styles = StyleSheet.create({
         color: "white",
         marginLeft: 20,
         fontSize: 30,
+        fontWeight: "bold",
     },
     sub:{
       color: "white",
       marginLeft: 20,
       fontSize: 18,
+        fontWeight: "bold",
     },
     input:{
         width: "80%",
@@ -183,6 +197,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         color: "white",
         fontSize: 18,
+        fontWeight: "bold",
     },
     contentAa:{
       backgroundColor: "#EB9373",

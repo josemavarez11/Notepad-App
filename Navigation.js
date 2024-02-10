@@ -92,6 +92,10 @@ const MyStack = () => {
             <ProfileStack.Screen 
             name="Delete Account" 
             component={Delete} 
+            options={{
+                headerTintColor: "#EB9373",
+                headerLargeTitleShadowVisible: false
+            }}
             />   
 
             <ProfileStack.Screen 

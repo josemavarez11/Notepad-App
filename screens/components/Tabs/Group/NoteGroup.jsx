@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from 
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const NoteGroup = () => {
+const NoteGroup = (arg) => {
     const [info, setInfo] = useState([]);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
@@ -14,30 +14,19 @@ const NoteGroup = () => {
         await getNotes(token);
     }
 
-    const getNotes = async(authToken) =>{
-            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                }
-            })
-            const info = await response.json();
-            setInfo(info);
-    }
-
     useEffect(() => {
-            getToken();
+        getToken();
     }, []);
 
     return (
         <FlatList
-            data={info}
-            id={info.id}
-            renderItem={({ item: info}) => (
+            data={arg.route.params.data}
+            // id={infoData.id}
+            renderItem={({ item: infoData}) => (
                
                     
                     <View style={style.contentNote}>
-                        <View key={info.id} style={style.note}>
+                        <View style={style.note}>
 
                             <View style={style.circle}>
                                 <Image
@@ -50,7 +39,7 @@ const NoteGroup = () => {
                                 <TouchableOpacity
                                 onPress={() => navigation.navigate("NotesUser", {info})}
                                 >
-                                <Text style={{ color: "#E97451"}}>{info.title}</Text>
+                                <Text style={{ color: "#E97451"}}>{infoData.title}</Text>
                                </TouchableOpacity>
 
                                 {/* Boton de delete */}
@@ -135,7 +124,12 @@ const style = StyleSheet.create({
         position: "absolute",
         right: 0,
         marginRight: 20,
-    }
+    },
+    text: {
+        fontSize: 20,
+        color: "#E97451",
+        fontWeight: "bold",
+    },
 });
 
 export default NoteGroup;

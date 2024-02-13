@@ -27,7 +27,7 @@ const NotesUser = (arg) =>{
 
   const updateNoteTitle = async (newTitle) => {
     try {
-      const token = "your_token_here"; // Replace with actual token
+      const token = "your_token_here"; 
       const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteTitle/${id}`, {
         method: 'PUT',
         headers: {
@@ -36,16 +36,13 @@ const NotesUser = (arg) =>{
         },
         body: JSON.stringify({ title: newTitle })
       });
-      // Handle response as needed
     } catch (error) {
-      // Handle error
       console.error('Error updating note title:', error);
     }
   };
 
   const updateNoteDescription = async (newDescription) => {
     try {
-      const token = "your_token_here"; // Replace with actual token
       const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteDescription/${id}`, {
         method: 'PUT',
         headers: {
@@ -54,19 +51,12 @@ const NotesUser = (arg) =>{
         },
         body: JSON.stringify({ description: newDescription })
       });
-      // Handle response as needed
+
     } catch (error) {
-      // Handle error
+
       console.error('Error updating note description:', error);
     }
   };
-
-  const handleSave = () => {
-    updateNoteTitle(title);
-    updateNoteDescription(note);
-    navigation.navigate('NotePage');
-  };
-  
   return (
     <View style={style.content}>
       <View style={style.contentTitle}>

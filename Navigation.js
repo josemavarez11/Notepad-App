@@ -19,6 +19,7 @@ import NotesUser from "./screens/components/Tabs/Note/NoteUser";
 import Nav from "./screens/components/Nav";
 import NotesGroup from "./screens/components/Tabs/Group/NoteGroup";
 import GroupNote from "./screens/components/Tabs/Group/GroupNote";
+import ContentGroup from "./screens/components/Tabs/Group/ContentGroup";
 
 
 //icons
@@ -144,6 +145,20 @@ const MyStack = () => {
 <ProfileStack.Screen
             name="GroupNote"
             component={GroupNote}
+            options={{ 
+                headerShown: false
+            }}
+        />
+        <ProfileStack.Screen
+            name="NotesGroup"
+            component={NotesGroup}
+            options={{ 
+                headerShown: false
+            }}
+        />
+        <ProfileStack.Screen
+            name="ContentGroup"
+            component={ContentGroup}
             options={{ 
                 headerShown: false
             }}

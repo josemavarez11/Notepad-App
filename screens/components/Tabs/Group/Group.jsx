@@ -7,7 +7,9 @@ const Group = () => {
   const navigation = useNavigation();
   const [info, setInfo] = useState([]);
   const [token, setToken] = useState("");
-  const [info2, setInfo2] = useState("");
+  // const [info2, setInfo2] = useState("");
+
+
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -29,25 +31,24 @@ const Group = () => {
     setInfo(info);
   };
 
-  const getNotesCategory = async (authToken, id) => {
-    const response = await fetch(
-      `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory/${id}`,
+  const getNotesCategory = async (id) => {
+    const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory?categoryID=${id}`;
+    const response = await fetch(url,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
-
-    const info2 = await response.json();
-    setInfo2(info2);
-    console.log(response);
-    console.log(info2);
+    const data = await response.json();
+      // console.log(data);
+      navigation.navigate("NotesGroup", { data });
   };
 
   useEffect(() => {
     getToken();
+    // getNotesCategory();
   }, []);
 
   return (
@@ -60,11 +61,13 @@ const Group = () => {
               <View style={style.circle}>
                 <Image source={require("../../../../assets/icon-group.png")} />
               </View>
-              <TouchableOpacity onPress={() => getNotesCategory(token, item.id)}>
+              {/*  */}
+              <TouchableOpacity onPress={() => getNotesCategory(item.id)}>
                 <View>
                   <Text style={style.text}>{item.name}</Text>
                 </View>
               </TouchableOpacity>
+              {/*  */}
             </View>
           </View>
         </View>

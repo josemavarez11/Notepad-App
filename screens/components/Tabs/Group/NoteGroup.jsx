@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from 
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Note = () => {
+const NoteGroup = () => {
     const [info, setInfo] = useState([]);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
@@ -15,7 +15,7 @@ const Note = () => {
     }
 
     const getNotes = async(authToken) =>{
-            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes`, {
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${authToken}`,
@@ -138,4 +138,4 @@ const style = StyleSheet.create({
     }
 });
 
-export default Note;
+export default NoteGroup;

@@ -6,91 +6,93 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const NotesUser = () =>{
-    // const [info, setInfo] = useState([]);
-    // const [idNote, setIdNote] = useState("");
-    const navigation = useNavigation();
+const NotesUser = (arg) =>{
+  const { title, description, id } = arg.route.params.info;
+  const navigation = useNavigation();
+  const [note, setNote] = useState(description);
+  const maxCharacters = 250;
 
-    // const IdNote = async() =>{
-    //     const idNote = await AsyncStorage.getItem("idnote");
-    //     setIdNote(idNote);
-    //     console.log(idNote)
-    // }
+  
+  const getToken = async () =>{
+    const token = await AsyncStorage.getItem("token");
+    setToken(token);
+    await getNotes(token);
+}
 
-    // useEffect(() => {
-    //     IdNote();
+  const handleTextChange = (text) => {
+    if (text.length <= maxCharacters) {
+      setNote(text);
+    }
+  };
 
-    //     // Mientras tanto...
-    //     const id = "65bea73e0455a3ba7c1fe7d8";
-    //     const fetchData = async () => {
-    //         const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes?id=${id}`);
-    //         const info = await response.json();
-    //         setInfo(info);
-    //         // console.log(info)
-    //         console.log(info.title)
-    //     }
-    //     fetchData();
-    //     console.log(idNote)
-    //     // console.log(note);
-    // },[])
-    // const note = info.filter((note) => note._id == idNote);
+  const updateNoteTitle = async (newTitle) => {
+    try {
+      const token = "your_token_here"; // Replace with actual token
+      const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteTitle/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: newTitle })
+      });
+      // Handle response as needed
+    } catch (error) {
+      // Handle error
+      console.error('Error updating note title:', error);
+    }
+  };
 
-// 
+  const updateNoteDescription = async (newDescription) => {
+    try {
+      const token = "your_token_here"; // Replace with actual token
+      const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteDescription/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ description: newDescription })
+      });
+      // Handle response as needed
+    } catch (error) {
+      // Handle error
+      console.error('Error updating note description:', error);
+    }
+  };
 
-const initialParagraph = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum veniam eos, pariatur earum aliquam rerum nobis suscipit quae culpa, perferendis, iure enim impedit cupiditate necessitatibus a qui molestias sint officiis.';
-const maxCharacters = 250;
-
-const [note, setNote] = useState(initialParagraph);
-
-const handleTextChange = (text) => {
-  if (text.length <= maxCharacters) {
-    setNote(text);
-  }
-};
-
-return (
-  <View style={style.content}>
-    <View style={style.contentTitle}>
-      <TouchableOpacity
-      onPress={() => navigation.navigate('NotePage')}>
-      <Image
-      style={style.img}
-        source={require('../../../../assets/back.png')}
-      />
-      </TouchableOpacity>
-      <Text style={style.text}>Title</Text>
-    </View>
-    <View style={style.contentText}>
-      <TextInput
-        style={style.info}
-        placeholder="Escribe tu nota aquí"
-        multiline={true}
-        value={note}
-        onChangeText={handleTextChange}
-        keyboardType="default"
-        numberOfLines={10}
-      />
-
-      
-    </View>
-    <View style={{marginTop: 550}}>
-        <Text style={{color:'#E97451', fontWeight: "bold"}}>Caracteres: {note.length}/{maxCharacters}</Text>
+  const handleSave = () => {
+    updateNoteTitle(title);
+    updateNoteDescription(note);
+    navigation.navigate('NotePage');
+  };
+  
+  return (
+    <View style={style.content}>
+      <View style={style.contentTitle}>
+        <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
+          <Image style={style.img} source={require('../../../../assets/back.png')} />
+        </TouchableOpacity>
+        <Text style={style.text}>{title}</Text>
       </View>
-  </View>
-);
+      <View style={style.contentText}>
+        <TextInput
+          style={style.info}
+          placeholder="Escribe tu nota aquí"
+          multiline={true}
+          value={note}
+          onChangeText={handleTextChange}
+          keyboardType="default"
+          numberOfLines={10}
+        />
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <Text style={{ color: '#E97451', fontWeight: "bold" }}>Caracteres: {note.length}/{maxCharacters}</Text>
+      </View>
+    </View>
+  );
 };
-
 const style = StyleSheet.create({
-    // container: {
-    //     flex: 1,
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     backgroundColor: "red",
-    // },
-    // text: {
-    //     fontSize: 20,
-    //     color: "#333"
-    // },
     content:{
         flex: 1,
         justifyContent: "flex-start",
@@ -101,7 +103,7 @@ const style = StyleSheet.create({
     contentTitle:{
         display: "flex",
         flexDirection: "row",
-        justifyContent: "flex-end",
+        gap: 120,
         marginBottom: 40,
     },
     contentText:{
@@ -120,7 +122,6 @@ const style = StyleSheet.create({
         fontSize: 20,
         color: "#E97451", 
         textAlign: "justify",
-        // width: "80%",
         padding: 40,
     },
     img:{

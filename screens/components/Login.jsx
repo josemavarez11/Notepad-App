@@ -13,9 +13,9 @@ const Login = () => {
 
     const navigation = useNavigation();
 
-    // const saveToken = async (token) =>{
-    //     await AsyncStorage.setItem("token" , token)
-    // }
+    const saveToken = async (token) =>{
+        await AsyncStorage.setItem("token" , token)
+    }
 
     const handleValidacion = () =>{
 
@@ -71,8 +71,8 @@ const Login = () => {
         }
         try {
             const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin, headers: headersLogin});
-            console.log(response.token);
-            // await saveToken(response.token);
+            // console.log(response.token);
+            await saveToken(response.token);
             
             navigation.navigate('NotePage');
             // navigation.navigate('Profile');
@@ -89,7 +89,7 @@ const Login = () => {
             const token = await AsyncStorage.getItem("token");
             setToken(token);
             if(token){
-                // navigation.navigate('NotePage');
+                navigation.navigate('NotePage');
             }
         }
         getToken();

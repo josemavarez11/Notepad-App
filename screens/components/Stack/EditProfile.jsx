@@ -56,7 +56,7 @@ const EditProfile = () =>{
                     style={style.btn}
                     onPress={() => setViewUser(false)}
                     >
-                        <Text style={style.textt}>Save</Text>
+                        <Text style={style.textt}>Save Changes</Text>
                     </TouchableOpacity>
 
                     <View
@@ -108,7 +108,7 @@ const EditProfile = () =>{
                     style={style.btn}
                     onPress={() => setViewEmail(false)}
                     >
-                        <Text style={style.textt}>Save</Text>
+                        <Text style={style.textt}>Save Changes</Text>
                     </TouchableOpacity>
 
                     <View
@@ -134,9 +134,6 @@ const EditProfile = () =>{
             <Text style={style.text}>Password</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={style.btn}>
-            <Text style={style.text}>Save Changes</Text>
-        </TouchableOpacity>
 
         <Modal
             animationType="slide"
@@ -161,10 +158,10 @@ const EditProfile = () =>{
                 />
 
                     <TouchableOpacity
-                    style={style.btn}
+                    style={style.btnn}
                     onPress={() => setViewPassword(false)}
                     >
-                        <Text style={style.textt}>Save</Text>
+                        <Text style={style.textt}>Save Changes</Text>
                     </TouchableOpacity>
 
                     <View
@@ -257,6 +254,18 @@ const style = StyleSheet.create({
         color: "white",
         fontSize: 20,
         fontWeight: "bold"
+    },
+    btnn:{
+        backgroundColor: "#EDB381",
+        padding: 10,
+        marginTop: "10%",
+        width: 250,
+        height: 60,
+        alignSelf: "center",
+        borderRadius: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     }
 })
 

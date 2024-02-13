@@ -17,10 +17,13 @@ import Welcome from "./screens/components/Welcome";
 import Login from "./screens/components/Login";
 import NotesUser from "./screens/components/Tabs/Note/NoteUser";
 import Nav from "./screens/components/Nav";
+import NotesGroup from "./screens/components/Tabs/Group/NoteGroup";
+import GroupNote from "./screens/components/Tabs/Group/GroupNote";
 
 
 //icons
 import { MaterialCommunityIcons, Feather} from '@expo/vector-icons';
+
 
 
 
@@ -133,6 +136,14 @@ const MyStack = () => {
         <ProfileStack.Screen
             name="Nav"
             component={Nav}
+            options={{ 
+                headerShown: false
+            }}
+        />
+
+<ProfileStack.Screen
+            name="GroupNote"
+            component={GroupNote}
             options={{ 
                 headerShown: false
             }}

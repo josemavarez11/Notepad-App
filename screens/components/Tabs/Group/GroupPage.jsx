@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput} from "react-native";
+import { View, Text, StyleSheet} from "react-native";
 import Group from "./Group";
-import Constants  from "expo-constants";
 import Nav from "../../Nav";
 
 const GroupPage = () =>{

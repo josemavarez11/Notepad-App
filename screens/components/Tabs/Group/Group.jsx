@@ -1,102 +1,118 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
+const Group = () => {
+  const navigation = useNavigation();
+  const [info, setInfo] = useState([]);
+  const [token, setToken] = useState("");
+  const [info2, setInfo2] = useState("");
 
-const Group = () =>{
-    const [info, setInfo] = useState([]);
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem("token");
+    setToken(token);
+    await getGroups(token);
+  };
 
-    useEffect(() => {
-        const fetchData = async () =>{
-            const token =  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI2NzhmY2E4N2Y3YzYwYWUyZGY1YWQiLCJpYXQiOjE3MDc1MzA4OTgsImV4cCI6MTcwNzUzNDQ5OH0.ujMkNGtewegtPSizU3szWBrk3MonXYLY3O5SriwSdzM'
-            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories`,{
-                method: 'GET',
-                headers: {
-                    'authorization': `Bearer ${token}`,
-                },
-            });
-            const info = await response.json();
-            console.log(info)
-            setInfo(info);
-            // console.log(response)
-
-        }
-        fetchData();
-    }, []);
-    return (
-        <FlatList
-            data={info}
-            renderItem={({ item: info }) => (
-                <View style={style.contentMax}>
-                    <View style={style.contentNote}>
-                        <View key={info.id} style={style.note}>
-                        <View style={style.circle}>
-                                <Image
-                                source={require('../../../../assets/icon-group.png')}
-                                />
-                            </View>
-                            <View>
-                                <Text style={style.text}>{info.name}</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            )}
-            keyExtractor={(item) => item.id.toString()}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            style={{height: "100%", marginBottom: 100}}
-        />
+  const getGroups = async (authToken) => {
+    const response = await fetch(
+      `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
     );
-}
+    const info = await response.json();
+    setInfo(info);
+  };
+
+  const getNotesCategory = async (authToken, id) => {
+    const response = await fetch(
+      `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    const info2 = await response.json();
+    setInfo2(info2);
+    console.log(response);
+    console.log(info2);
+  };
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  return (
+    <FlatList
+      data={info}
+      renderItem={({ item }) => (
+        <View style={style.contentMax}>
+          <View style={style.contentNote}>
+            <View key={item.id} style={style.note}>
+              <View style={style.circle}>
+                <Image source={require("../../../../assets/icon-group.png")} />
+              </View>
+              <TouchableOpacity onPress={() => getNotesCategory(token, item.id)}>
+                <View>
+                  <Text style={style.text}>{item.name}</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
+      keyExtractor={(item) => item.id.toString()}
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      style={{ height: "100%", marginBottom: 100 }}
+    />
+  );
+};
 
 const style = StyleSheet.create({
-    contentNote:{
-        display: "flex",
-        flexDirection: "column",
-        // justifyContent: "center",
-        // alignItems: "center",
-        gap: 10,
-        marginTop: 10
-    },
-    note:{
-        backgroundColor: "#FAF0E8",
-        width: "90%",
-        height: 160,
-        borderRadius: 15,
-        display: "flex",
-        justifyContent:"flex-start",
-        alignItems: "flex-start",
-        flexDirection: "row",
-        gap: 45,
-        // marginTop: 50
-        marginLeft: 20,
-    },
-    circle:{
-        width: 100,
-        height: 100,
-        borderRadius: 62,
-        backgroundColor: "#FAE0C6",
-        marginLeft: 15,
-        marginTop: 25,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    text:{
-        marginTop:70,
-        fontSize: 20,
-        color: "#E97451",
-        fontWeight: "bold",
-        // marginLeft: 10,
-        // display: "flex",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // flexDirection: "column",
-        // gap: 5,
-        // padding: 5,
-    }
-
-})
+  contentNote: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+    marginTop: 10,
+  },
+  note: {
+    backgroundColor: "#FAF0E8",
+    width: "90%",
+    height: 160,
+    borderRadius: 15,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexDirection: "row",
+    gap: 45,
+    marginLeft: 20,
+  },
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 62,
+    backgroundColor: "#FAE0C6",
+    marginLeft: 15,
+    marginTop: 25,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    marginTop: 70,
+    fontSize: 20,
+    color: "#E97451",
+    fontWeight: "bold",
+  },
+});
 
 export default Group;

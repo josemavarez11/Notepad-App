@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet,TouchableOpacity, Image, Modal, TextInput} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useState, useEffect} from "react";
+import { Alert } from "react-native-web";
 
 const EditProfile = () =>{
     const [viewUser, setViewUser] = useState(false);
@@ -20,10 +21,42 @@ const EditProfile = () =>{
         await getGroups(token);
     };
 
+    const handleValidation = () => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if(username ==="" || password === "" || email === "" || password2 === ""){
+            Alert.alert("Error","You must fill all the fields",[{
+                text: "Ok",
+                onPress: () => console.log("Alert closed")
+            },
+            {
+                text: "Cancel",
+                
+            }])
+            return ;
+        }
+
+        if(username.length < 5){
+            Alert.alert("Username must be at least 5 characters");
+            return false;
+        }
+        if(emailRegex.test(email) === false){
+            Alert.alert("Invalid email");
+            return false;
+        }
+        if(password.length < 8){
+            Alert.alert("Password must be at least 8 characters");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     const handleUsernameSave = async () => {
+        handleValidation();
         if(usernameBox === "") {
             setViewUser(false);
-            return console.log("Username is required"); //hacer otra cosa que no sea un console log
+            return Alert.alert("Username is required");
         }
 
         try {
@@ -50,6 +83,7 @@ const EditProfile = () =>{
     }
 
     const handleEmailSave = async () => {
+        handleValidation();
         if(emailBox === "") {
             setViewEmail(false);
             return console.log("Email is required"); //hacer otra cosa que no sea un console log
@@ -79,6 +113,7 @@ const EditProfile = () =>{
     }
 
     const handlePasswordSave = async () => {
+        handleValidation();
         if(passwordBox === "") {
             setViewPassword(false);
             return console.log("Password is required"); //hacer otra cosa que no sea un console log
@@ -214,12 +249,7 @@ const EditProfile = () =>{
                             minLength={5}
                         />
 
-                        <TouchableOpacity
-                            style={style.btn}
-                            onPress={() => setViewEmail(false)}
-                        >
-                            <Text style={style.textt}>Cancel</Text>
-                        </TouchableOpacity>
+                        <View style={style.contentBtnPlus}>
 
                         <TouchableOpacity
                             style={style.btn}
@@ -227,6 +257,16 @@ const EditProfile = () =>{
                         >
                             <Text style={style.textt}>Save Changes</Text>
                         </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={style.btn}
+                            onPress={() => setViewEmail(false)}
+                        >
+                            <Text style={style.textt}>Cancel</Text>
+                        </TouchableOpacity>
+
+                        </View>
+                       
 
                         <View
                             style={{
@@ -271,19 +311,20 @@ const EditProfile = () =>{
                             minLength={5}
                         />
 
-                        <TouchableOpacity
-                            style={style.btn}
-                            onPress={() => setViewPassword(false)}
-                        >
-                            <Text style={style.textt}>Cancel</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={style.btnn}
-                            onPress={handlePasswordSave}
-                        >
-                            <Text style={style.textt}>Save Changes</Text>
-                        </TouchableOpacity>
+                            <View style={style.contentBtnPlus}>
+                                <TouchableOpacity
+                                style={style.btn}
+                                onPress={handlePasswordSave}
+                                >
+                                <Text style={style.textt}>Save Changes</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                style={style.btn}
+                                onPress={() => setViewPassword(false)}
+                                >
+                                <Text style={style.textt}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
 
                         <View
                             style={{
@@ -384,7 +425,7 @@ const style = StyleSheet.create({
     contentBtnPlus:{
         display: "flex",
         flexDirection: "row",
-        gap: 15
+        gap: 10
     }
 })
 

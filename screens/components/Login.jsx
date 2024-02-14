@@ -35,10 +35,6 @@ const Login = () => {
             Alert.alert("Username must be at least 5 characters");
             return false;
         }
-        if(password.length < 8){
-            Alert.alert("Password must be at least 8 characters");
-            return false;
-        }
         if(password === ''){
             Alert.alert("Password is required");
             return false;
@@ -57,10 +53,12 @@ const Login = () => {
     }
 
     const handleClick = async (e) => {
-
-        handleValidacion();
-        
         (e).preventDefault();
+        if(!handleValidacion()){
+            return;
+        }
+        
+        
         const endpoint = '/auth/login';
         const headersLogin = {
             'Content-Type': 'application/json',
@@ -76,8 +74,7 @@ const Login = () => {
                 await saveToken(response.token);
                 navigation.navigate('NotePage');
             } else {
-                console.log('Error in login');
-                //cambiar esto
+                Alert.alert("Error", "Invalid username or password");
             }
         } catch (error) {
             console.error(error)

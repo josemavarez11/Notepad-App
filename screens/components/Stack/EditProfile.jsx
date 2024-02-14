@@ -144,7 +144,7 @@ const EditProfile = () =>{
                     style={{flex: 1, backgroundColor: "rgba(1,1,1, 0.5)", justifyContent: "center", alignItems: "center"}}
                 >
                     <View
-                        style={{height: "30%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                        style={{height: "40%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
                     >
                         <TextInput //aplicar validación de longitud
                             placeholder="New Username" 
@@ -154,19 +154,23 @@ const EditProfile = () =>{
                             minLength={5}
                         />
 
-                        <TouchableOpacity
-                            style={style.btn}
-                            onPress={() => setViewUser(false)}
-                        >
-                            <Text style={style.textt}>Cancel</Text>
-                        </TouchableOpacity>
+                        <View style={style.contentBtnPlus}>
 
                         <TouchableOpacity
-                            style={style.btn}
-                            onPress={handleUsernameSave}
-                        >
-                            <Text style={style.textt}>Save Changes</Text>
-                        </TouchableOpacity>
+                                style={style.btn}
+                                onPress={handleUsernameSave}
+                            >
+                                <Text style={style.textt}>Save Changes</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={style.btn}
+                                onPress={() => setViewUser(false)}
+                            >
+                                <Text style={style.textt}>Cancel</Text>
+                            </TouchableOpacity>
+
+
+                        </View>
 
                         <View
                             style={{
@@ -200,7 +204,7 @@ const EditProfile = () =>{
                 >
 
                     <View
-                        style={{height: "30%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                        style={{height: "40%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
                     >
                         <TextInput //aplicar validación de longitud y solo correos validos
                             placeholder="New Email" 
@@ -257,7 +261,7 @@ const EditProfile = () =>{
                 >
 
                     <View
-                        style={{height: "30%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                        style={{height: "40%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
                     >
                         <TextInput //aplicar validación de longitud
                             placeholder="New Password" 
@@ -342,7 +346,7 @@ const style = StyleSheet.create({
         backgroundColor: "#EDB381",
         padding: 10,
         marginTop: "10%",
-        width: 220,
+        width: 150,
         height: 55,
         alignSelf: "center",
         borderRadius: 10,
@@ -362,7 +366,7 @@ const style = StyleSheet.create({
     },
     textt:{
         color: "white",
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: "bold"
     },
     btnn:{
@@ -376,6 +380,11 @@ const style = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+    },
+    contentBtnPlus:{
+        display: "flex",
+        flexDirection: "row",
+        gap: 15
     }
 })
 

@@ -10,13 +10,13 @@ const NotesUser = (arg) =>{
   const { title, description, id } = arg.route.params.info;
   const navigation = useNavigation();
   const [note, setNote] = useState(description);
+  const [token, setToken] = useState("");
   const maxCharacters = 250;
 
   
   const getToken = async () =>{
     const token = await AsyncStorage.getItem("token");
     setToken(token);
-    await getNotes(token);
 }
 
   const handleTextChange = (text) => {

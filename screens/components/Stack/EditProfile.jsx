@@ -17,7 +17,6 @@ const EditProfile = () =>{
     const getToken = async () => {
         const token = await AsyncStorage.getItem("token");
         setToken(token);
-        await getGroups(token);
     };
 
     const handleUsernameSave = async () => {

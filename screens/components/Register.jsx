@@ -48,18 +48,26 @@ const Register = () => {
             return true;
         }
     }
-    const handleClick = async (e) =>  {
+    const handleSignUpClick = async (e) =>  {
 
         (e).preventDefault();
         const endpoint = '/auth/register';
-        const body = {
+        const bodyLogin = {
             username,
             password,
             email,
         }
         try {
             
-            const response = await Fercho({ endpoint, method: 'POST', body });
+            //const response = await Fercho({ endpoint, method: 'POST', body });
+            const response = await fetch("https://notepad-api-dev-hsee.3.us-1.fl0.io/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: bodyLogin
+            })
+            console.log(response);
             Alert.alert("Success" ,"Account created successfully")
             navigation.navigate('Login');
         } catch (error) {
@@ -125,9 +133,9 @@ const Register = () => {
                     maxLength={20}
                 />
                 <TouchableOpacity style={styles.buttonsS} onPress={handleValidation}>
-                    <Text style={styles.btnTextS}>Sign up</Text>
+                    <Text style={styles.btnTextS} onPress={handleSignUpClick}>Sign up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonsL} onPress={async() =>{await navigation.navigate("Login")}}>
+                <TouchableOpacity style={styles.buttonsL} onPress={async() =>{navigation.navigate("Login")}}>
                     <Text style={styles.btnTextL}>Login</Text>
                 </TouchableOpacity>
             </View>

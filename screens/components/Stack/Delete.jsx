@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 const Delete = () =>{
     const navigation = useNavigation();
 
-    const handleDelete = async () =>{
+    const handleDelete = async () => {
 
         try {
             // const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/users/delete`
@@ -21,15 +21,16 @@ const Delete = () =>{
             //     const data = await response.json();
             //     console.log(data);
         
-            //     return Alert.alert("Your account has been deleted",
-            //         [{ text: "Ok", onPress: () => navigation.navigate("Login")}]
-            //     );
+                return Alert.alert("Your account has been deleted",
+                    [{ text: "Ok", onPress: () => navigation.navigate("Login")}]
+                );
             // } else {
             //     return //alertar que no se pudo eliminar la cuenta
             // }
         } catch (error) {
             //alertar que no se pudo eliminar la cuenta
             //pudo ser por falta de internet
+            return console.error(error);
         }
 
     }

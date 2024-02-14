@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Image} from "react-native";
 import Fercho from "./Fercho.js";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -9,72 +10,59 @@ const Register = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
 
-    
     const navigation = useNavigation();
 
     const handleValidation = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-        if(username ==="" || password === "" || email === "" || password2 === ""){
-            Alert.alert("Error","You must fill all the fields",[{
-                text: "Ok",
-                onPress: () => console.log("Alert closed")
-            },
-            {
-                text: "Cancel",
-                
-            }])
-            return ;
+        if(username ==="" || password === "" || email === "" ){
+            Alert.alert("Error","You must fill all the fields",[
+                { text: "Ok"}
+            ]);
+            return false;  
         }
 
         if(username.length < 5){
             Alert.alert("Username must be at least 5 characters");
             return false;
         }
+
         if(emailRegex.test(email) === false){
             Alert.alert("Invalid email");
             return false;
         }
+
         if(password.length < 8){
             Alert.alert("Password must be at least 8 characters");
             return false;
         }
-        if (password !== password2){
-            Alert.alert("Error","Passwords do not match");}
-        else{
-            return true;
-        }
-    }
-    const handleSignUpClick = async (e) =>  {
-
-        (e).preventDefault();
-        const endpoint = '/auth/register';
-        const bodyLogin = {
-            username,
-            password,
-            email,
-        }
-        try {
             
-            //const response = await Fercho({ endpoint, method: 'POST', body });
+        return true;
+    }
+
+    const handleSignUpClick = async (e) =>  {
+        (e).preventDefault();
+
+        if(!handleValidation()) return;
+
+        try {
             const response = await fetch("https://notepad-api-dev-hsee.3.us-1.fl0.io/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: bodyLogin
+                body: JSON.stringify({ username, password, email })
             })
-            console.log(response);
-            Alert.alert("Success" ,"Account created successfully")
-            navigation.navigate('Login');
+
+            if(response.status !== 201) return Alert.alert("Error", "Something went wrong, try again later");
+
+            Alert.alert("Success", "Account created successfully");
+            return navigation.navigate('Login');   
         } catch (error) {
             console.log(error.data)
         }    
-    
-        console.log(response);
     }
 
     useEffect(() => {}, [])
@@ -104,7 +92,7 @@ const Register = () => {
                     placeholderTextColor={'#EB9373'} 
                     onChangeText={e => setUsername(e)}
                     minLength={5}
-                    maxLength={10}
+                    maxLength={15}
                 />
                 <TextInput 
                     placeholder="Email" 
@@ -123,17 +111,8 @@ const Register = () => {
                     minLength={8}
                     maxLength={20}
                 />
-                  <TextInput 
-                    placeholder="Confirm Password" 
-                    secureTextEntry={true}
-                    style={styles.input} 
-                    placeholderTextColor={'#EB9373'}
-                    onChangeText={e => setPassword2(e)}
-                    minLength={8}
-                    maxLength={20}
-                />
-                <TouchableOpacity style={styles.buttonsS} onPress={handleValidation}>
-                    <Text style={styles.btnTextS} onPress={handleSignUpClick}>Sign up</Text>
+                <TouchableOpacity style={styles.buttonsS} onPress={handleSignUpClick}>
+                    <Text style={styles.btnTextS}>Sign up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonsL} onPress={async() =>{navigation.navigate("Login")}}>
                     <Text style={styles.btnTextL}>Login</Text>

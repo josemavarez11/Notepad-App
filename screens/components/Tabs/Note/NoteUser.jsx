@@ -17,11 +17,11 @@ const NotesUser = (arg) =>{
   const getToken = async () =>{
     const token = await AsyncStorage.getItem("token");
     setToken(token);
-}
+  }
 
-  const handleTextChange = (text) => {
-    if (text.length <= maxCharacters) {
-      setNote(text);
+  const handleTextChange = (e) => {
+    if(e.length <= maxCharacters) {
+      setNote(e);
     }
   };
 
@@ -77,7 +77,7 @@ const NotesUser = (arg) =>{
         />
       </View>
       <View style={{ marginTop: 20 }}>
-        <Text style={{ color: '#E97451', fontWeight: "bold" }}>Caracteres: {note.length}/{maxCharacters}</Text>
+        <Text style={{ color: '#E97451', fontWeight: "bold" }}>{note.length}/{maxCharacters}</Text>
       </View>
     </View>
   );

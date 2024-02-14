@@ -5,6 +5,7 @@ import Fercho from "./Fercho.js";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 
+//sigue habiendo un bug al entrar a la app desde register
 
 const Register = () => {
 

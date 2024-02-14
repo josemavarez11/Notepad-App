@@ -6,19 +6,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const newNote = (arg) =>{
+const NewNote = (arg) =>{
     const navigation = useNavigation();
 //   const { title, description, id } = arg.route.params.info;
 //   const navigation = useNavigation();
 //   const [note, setNote] = useState(description);
-//   const [token, setToken] = useState("");
-  const maxCharacters = 250;
+    const [token, setToken] = useState("");
+    const maxCharacters = 250;
 
   
   const getToken = async () =>{
     const token = await AsyncStorage.getItem("token");
     setToken(token);
-}
+  }
 
 //   const handleTextChange = (text) => {
 //     if (text.length <= maxCharacters) {
@@ -58,6 +58,11 @@ const newNote = (arg) =>{
 //       console.error('Error updating note description:', error);
 //     }
 //   };
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
   return (
     <View style={style.content}>
       <View style={style.contentTitle}>
@@ -125,4 +130,4 @@ const style = StyleSheet.create({
       marginRight: 20,
     }
 })
-export default newNote;
+export default NewNote;

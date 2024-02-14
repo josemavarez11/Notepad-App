@@ -25,12 +25,3 @@
     "password": "jordan.23"
 }
 
-{
-    "username": "tombrady_12",
-    "password": "thegoat.12"
-}
-
-{
-    "username": "harrypotter",
-    "password": "harry.1010"
-}

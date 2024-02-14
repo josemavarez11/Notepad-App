@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-nat
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
-import newNote from "../../newNote";
+import NewNote from "../../NewNote";
 import { useNavigation } from "@react-navigation/native";
 
 const NotePage = () =>{
@@ -13,7 +13,7 @@ const NotePage = () =>{
             <View style={style.contentBtn}>
                 <TouchableOpacity
                     style={style.btn}
-                    onPress={() => navigation.navigate('newNote')}
+                    onPress={() => navigation.navigate('NewNote')}
                 >
                     <Image
                     source={require('../../../../assets/add-note.png')}

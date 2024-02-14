@@ -20,10 +20,12 @@ import Nav from "./screens/components/Nav";
 import NotesGroup from "./screens/components/Tabs/Group/NoteGroup";
 import GroupNote from "./screens/components/Tabs/Group/GroupNote";
 import ContentGroup from "./screens/components/Tabs/Group/ContentGroup";
+import newNote from "./screens/components/newNote";
 
 
 //icons
 import { MaterialCommunityIcons, Feather} from '@expo/vector-icons';
+
 
 
 
@@ -159,6 +161,14 @@ const MyStack = () => {
         <ProfileStack.Screen
             name="ContentGroup"
             component={ContentGroup}
+            options={{ 
+                headerShown: false
+            }}
+        />
+
+        <ProfileStack.Screen
+            name="newNote"
+            component={newNote}
             options={{ 
                 headerShown: false
             }}

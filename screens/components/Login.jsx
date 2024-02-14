@@ -72,15 +72,15 @@ const Login = () => {
         try {
             const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin, headers: headersLogin});
             // console.log(response.token);
-            await saveToken(response.token);
-            
-            navigation.navigate('NotePage');
-            // navigation.navigate('Profile');
-            // navigation.navigate('Group');
-            // navigation.navigate('Nav');
-
+            if(response.token) {
+                await saveToken(response.token);
+                navigation.navigate('NotePage');
+            } else {
+                console.log('Error in login');
+                //cambiar esto
+            }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
@@ -130,7 +130,7 @@ const Login = () => {
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setPassword(e)}
-                    minLength={8}
+                    // minLength={8}
                    
                 />
                 <TouchableOpacity style={styles.buttons} onPress={handleClick}>

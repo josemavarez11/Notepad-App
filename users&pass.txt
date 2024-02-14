@@ -1,0 +1,31 @@
+**Files with usernames and their passwords for test purpose. Please update the file when made changes.**
+
+{
+    "username": "adrimars10",
+    "password": "adri0412"
+}
+
+{
+    "username": "jose11",
+    "password": "jose.1103"
+}
+
+{
+    "username": "giout",
+    "password": "gio32"
+}
+
+{
+    "username": "anamrangel",
+    "password": "ana.2712"
+}
+
+{
+    "username": "michaeljordan",
+    "password": "jordan.23"
+}
+
+{
+    "username": "tombrady_12",
+    "password": "thegoat.12"
+}

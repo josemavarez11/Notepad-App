@@ -65,6 +65,7 @@ const NewNote = (arg) =>{
             // onChangeText={''}
             onChangeText={e => setNoteTitle(e)} 
             keyboardType="default"
+            maxLength={28}
         />
       </View>
       <View style={style.contentText}>
@@ -79,7 +80,7 @@ const NewNote = (arg) =>{
           numberOfLines={10}
         />
       </View>
-      <View style={{ marginTop: 20 }}>
+      <View style={style.contador}>
         <Text style={{ color: '#E97451', fontWeight: "bold" }}>{noteDescription.length}/{maxCharacters}</Text>
       </View>
     </View>
@@ -96,13 +97,18 @@ const style = StyleSheet.create({
     contentTitle:{
         display: "flex",
         flexDirection: "row",
-        gap: 120,
-        marginBottom: 40,
+        width: "90%",
+        justifyContent: "space-between",
+        // gap: 120,
+        marginBottom: 30,
+        // backgroundColor: 'red'
     },
     contentText:{
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        height: '85%',
+        width: '90%',
 
     },
     text:{
@@ -119,6 +125,14 @@ const style = StyleSheet.create({
     },
     img:{
       marginRight: 20,
+    },
+    contador:{
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
+      width: "90%",
+      marginTop: 10,
+      // backgroundColor: 'black' 
     }
 })
 export default NewNote;

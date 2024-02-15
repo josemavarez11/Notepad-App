@@ -72,8 +72,8 @@ const NewNote = (arg) =>{
         <TextInput
             style={style.text}
             placeholder="Título"
-            value={''}
-            onChangeText={''}
+            // value={''}
+            // onChangeText={''}
             keyboardType="default"
         />
       </View>
@@ -82,8 +82,8 @@ const NewNote = (arg) =>{
           style={style.info}
           placeholder="Escribe tu nota aquí"
           multiline={true}
-          value={''}
-          onChangeText={''}
+        //   value={''}
+        //   onChangeText={''}
           keyboardType="default"
           numberOfLines={10}
         />

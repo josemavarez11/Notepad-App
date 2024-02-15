@@ -63,7 +63,12 @@ const NotesUser = (arg) =>{
         <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
           <Image style={style.img} source={require('../../../../assets/back.png')} />
         </TouchableOpacity>
-        <Text style={style.text}>{title}</Text>
+        <TextInput
+          style={style.text}
+          value={title}
+          onChangeText={updateNoteTitle}
+          keyboardType="default"
+        />
       </View>
       <View style={style.contentText}>
         <TextInput
@@ -76,7 +81,7 @@ const NotesUser = (arg) =>{
           numberOfLines={10}
         />
       </View>
-      <View style={{ marginTop: 20 }}>
+      <View style={style.contador}>
         <Text style={{ color: '#E97451', fontWeight: "bold" }}>{note.length}/{maxCharacters}</Text>
       </View>
     </View>
@@ -94,12 +99,15 @@ const style = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: 120,
-        marginBottom: 40,
+        marginBottom: 30,
     },
     contentText:{
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        // backgroundColor: 'red',
+        height: '85%',
+        width: '90%',
 
     },
     text:{
@@ -112,10 +120,18 @@ const style = StyleSheet.create({
         fontSize: 20,
         color: "#E97451", 
         textAlign: "justify",
-        padding: 40,
+        padding: 10,
     },
     img:{
       marginRight: 20,
+    },
+    contador:{
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
+      width: "90%",
+      marginTop: 10,
+      // backgroundColor: 'black' 
     }
 })
 export default NotesUser;

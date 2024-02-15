@@ -55,22 +55,22 @@ const Group = () => {
     <FlatList
       data={info}
       renderItem={({ item }) => (
-        <View style={style.contentMax}>
+        <TouchableOpacity onPress={() => getNotesCategory(item.id)}>
           <View style={style.contentNote}>
             <View key={item.id} style={style.note}>
               <View style={style.circle}>
                 <Image source={require("../../../../assets/icon-group.png")} />
               </View>
               {/*  */}
-              <TouchableOpacity onPress={() => getNotesCategory(item.id)}>
+              
                 <View>
                   <Text style={style.text}>{item.name}</Text>
                 </View>
-              </TouchableOpacity>
+              
               {/*  */}
             </View>
           </View>
-        </View>
+          </TouchableOpacity>
       )}
       keyExtractor={(item) => item.id.toString()}
       showsHorizontalScrollIndicator={false}

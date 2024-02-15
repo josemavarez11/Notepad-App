@@ -1,12 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import {useState, useEffect} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Nav from "../Nav";
 
 
 
 const Profile = () =>{
     const n = useNavigation();
+    const [username, setUsername] = useState("");
+
+    const getUsername = async () => {
+        const username = await AsyncStorage.getItem("username");
+        setUsername(username);
+    }
+
+    useEffect(() => {
+        getUsername();
+    }, []);
+
     return (
 
         <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
@@ -21,7 +34,7 @@ const Profile = () =>{
                     />
                 
                     <View style={style.textContent}>
-                        <Text style={style.Titletext}>Mario</Text>
+                        <Text style={style.Titletext}>{username}</Text>
                     </View>
             </View>
 

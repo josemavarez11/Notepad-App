@@ -19,6 +19,7 @@ const EditProfile = () =>{
     const getToken = async () => {
         const token = await AsyncStorage.getItem("token");
         setToken(token);
+        console.log(username);
     };
 
     const getUsername = async () => {
@@ -160,11 +161,9 @@ const EditProfile = () =>{
                     style={style.img}
                 />
                 <View style={style.textContent}>
-                    <Text style={style.Titletext}>Pedro</Text>
-                    {/* <Text style={style.Titletext}>{username}</Text> */}
+                    <Text style={style.Titletext}>{username}</Text>
                 </View>
             </View>
-
 
             {/* Modal de Username */}
             <TouchableOpacity 
@@ -199,13 +198,13 @@ const EditProfile = () =>{
                         <View style={style.contentBtnPlus}>
 
                         <TouchableOpacity
-                                style={style.btn}
+                                style={style.btnModal}
                                 onPress={handleUsernameSave}
                             >
                                 <Text style={style.textt}>Save Changes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={style.btn}
+                                style={style.btnModal}
                                 onPress={() => setViewUser(false)}
                             >
                                 <Text style={style.textt}>Cancel</Text>
@@ -259,14 +258,14 @@ const EditProfile = () =>{
                         <View style={style.contentBtnPlus}>
 
                         <TouchableOpacity
-                            style={style.btn}
+                            style={style.btnModal}
                             onPress={handleEmailSave}
                         >
                             <Text style={style.textt}>Save Changes</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={style.btn}
+                            style={style.btnModal}
                             onPress={() => setViewEmail(false)}
                         >
                             <Text style={style.textt}>Cancel</Text>
@@ -320,13 +319,13 @@ const EditProfile = () =>{
 
                             <View style={style.contentBtnPlus}>
                                 <TouchableOpacity
-                                style={style.btn}
+                                style={style.btnModal}
                                 onPress={handlePasswordSave}
                                 >
                                 <Text style={style.textt}>Save Changes</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                style={style.btn}
+                                style={style.btnModal}
                                 onPress={() => setViewPassword(false)}
                                 >
                                 <Text style={style.textt}>Cancel</Text>
@@ -394,7 +393,19 @@ const style = StyleSheet.create({
         backgroundColor: "#EDB381",
         padding: 10,
         marginTop: "10%",
-        width: 150,
+        width: 170,
+        height: 65,
+        alignSelf: "center",
+        borderRadius: 20,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    btnModal:{
+        backgroundColor: "#EDB381",
+        padding: 10,
+        marginTop: "10%",
+        width: 140,
         height: 55,
         alignSelf: "center",
         borderRadius: 10,

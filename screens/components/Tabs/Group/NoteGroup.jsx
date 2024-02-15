@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { Constants, statusBarHeight } from "expo-constants";
 
 const NoteGroup = (arg) => {
     const [info, setInfo] = useState([]);
@@ -18,50 +19,58 @@ const NoteGroup = (arg) => {
     }, []);
 
     return (
+        <View style={style.max}>
+            <View style={style.a}>
+            <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
+                <Image style={style.img} source={require('../../../../assets/back.png')} />
+            </TouchableOpacity>
+                <Text style={style.text}>name</Text>
+            </View>
+        <View style={style.b}>
         <FlatList
             data={arg.route.params.data}
             // id={infoData.id}
             renderItem={({ item: infoData}) => (
-               
-                    
-                    <View style={style.contentNote}>
-                        <View style={style.note}>
+                // <View style={{height: '100%', backgroundColor: 'blue'}}>
+                        <View style={style.contentNote}>
+                            <View style={style.note}>
 
-                            <View style={style.circle}>
-                                <Image
-                                    style={style.image}
-                                    source={require('../../../../assets/note.png')}
-                                />
-                            </View>
-
-                            <View style={style.contentBtn}>
-                                <TouchableOpacity
-                                onPress={() => navigation.navigate("NotesUser", {info})}
-                                >
-                                <Text style={{ color: "#E97451"}}>{infoData.title}</Text>
-                               </TouchableOpacity>
-
-                                {/* Boton de delete */}
-                            </View>
-                            <View style={style.button}>
-                                <TouchableOpacity
-                                style={style.btn}
-                                onPress={() => Alert.alert("Delete")}
-                                >
-                                <Image
-                                    source={require('../../../../assets/delete-icon.png')}
+                                <View style={style.circle}>
+                                    <Image
+                                        style={style.image}
+                                        source={require('../../../../assets/note.png')}
                                     />
+                                </View>
+
+                                <View style={style.contentBtn}>
+                                    <TouchableOpacity
+                                    onPress={() => navigation.navigate("NotesUser", {info})}
+                                    >
+                                    <Text style={{ color: "#E97451"}}>{infoData.title}</Text>
                                 </TouchableOpacity>
-                               </View>
+
+                                    {/* Boton de delete */}
+                                </View>
+                                <View style={style.button}>
+                                    <TouchableOpacity
+                                    style={style.btn}
+                                    onPress={() => Alert.alert("Delete")}
+                                    >
+                                    <Image
+                                        source={require('../../../../assets/delete-icon.png')}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
                         </View>
-                    </View>
-                    
             )}
             keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}r
-            style={{ height: "100%" }}
+            showsVerticalScrollIndicator={false}
+            style={style.list}
         />
+        </View>
+    </View>
     );
 };
 
@@ -78,7 +87,6 @@ const style = StyleSheet.create({
         width: 360,
         height: 70,
         borderRadius: 15,
-        // padding: 5,
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -95,40 +103,43 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    image: {
-        height: 26,
-        width: 26,
-    },
-    btn:{
-        // marginLeft: 30,
-        // backgroundColor: "red",
-        // width: 40,
-        // height: 40,
-        // position: "relative",
-    },
-    contentBtn:{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        // backgroundColor: "blue",
-        marginRight: 20,
-    },
     button:{
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "red",
         position: "absolute",
         right: 0,
         marginRight: 20,
     },
     text: {
-        fontSize: 20,
+        fontSize: 30,
         color: "#E97451",
         fontWeight: "bold",
     },
+    max:{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+
+    },
+    list:{
+        marginTop: "5%"
+    },
+    a:{
+        height: "10%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        backgroundColor: "#FAE0C6",
+        
+    },
+    b:{
+        height: "90%"
+    }
 });
 
 export default NoteGroup;

@@ -15,7 +15,7 @@ const NotePage = () =>{
                     onPress={() => navigation.navigate('NewNote')}
                 >
                     <Image
-                    source={require('../../../../assets/add-note.png')}
+                        source={require('../../../../assets/add-note.png')}
                     />
                 </TouchableOpacity>
             
@@ -96,22 +96,15 @@ const style = StyleSheet.create({
     // scroll:{
     //     marginBottom: 100
     // },
-    contentMax:{
-        marginBottom: 10,
-    },
     image:{
         height:26,
         width:26,
-        // backgroundColor: "white"
     },
     contentBtn:{
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "flex-start",
-        // marginTop: 20,
-        // marginBottom: 20,
-        // backgroundColor: "red",
         gap: 150,
     },
     btn:{

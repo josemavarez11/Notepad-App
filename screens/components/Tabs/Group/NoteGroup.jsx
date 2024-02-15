@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Constants, statusBarHeight } from "expo-constants";
 
 const NoteGroup = (arg) => {
+    const title = 'name of the group'
+    const [noteTitle, setNoteTitle] = useState(title);
     const [info, setInfo] = useState([]);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
@@ -24,7 +26,15 @@ const NoteGroup = (arg) => {
             <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
                 <Image style={style.img} source={require('../../../../assets/back.png')} />
             </TouchableOpacity>
-                <Text style={style.text}>name</Text>
+            <TextInput
+            style={style.text}
+            value={noteTitle}
+            onChangeText={(e) => {
+                setNoteTitle(e);
+            }}
+            keyboardType="default"
+            maxLength={28}
+            />
             </View>
         <View style={style.b}>
         <FlatList
@@ -133,9 +143,7 @@ const style = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "flex-end",
-        backgroundColor: "#FAE0C6",
-        
+        alignItems: "flex-end",        
     },
     b:{
         height: "90%"

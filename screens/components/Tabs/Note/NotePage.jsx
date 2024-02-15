@@ -28,10 +28,9 @@ const NotePage = () =>{
                 </View>
                     <Note />
                     <Nav />
-            </View>
-            
+            </View>  
         </View>
-    )
+    );
 }
 
 const style = StyleSheet.create({

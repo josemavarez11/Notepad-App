@@ -12,6 +12,8 @@ const NewNote = (arg) =>{
 //   const navigation = useNavigation();
 //   const [note, setNote] = useState(description);
     const [token, setToken] = useState("");
+    const [noteTitle, setNoteTitle] = useState("");
+    const [noteDescription, setNoteDescription] = useState("");
     const maxCharacters = 250;
 
   
@@ -20,44 +22,31 @@ const NewNote = (arg) =>{
     setToken(token);
   }
 
-//   const handleTextChange = (text) => {
-//     if (text.length <= maxCharacters) {
-//       setNote(text);
-//     }
-//   };
+  const handleBackButtonClick = async () => {
+    if (noteTitle.length === 0 && noteDescription.length === 0) return navigation.navigate('NotePage');
+    if (noteTitle.length === 0) return Alert.alert('Your new note requires a title!');
 
-//   const updateNoteTitle = async (newTitle) => {
-//     try {
-//       const token = "your_token_here"; 
-//       const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteTitle/${id}`, {
-//         method: 'PUT',
-//         headers: {
-//           'Authorization': `Bearer ${token}`,
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ title: newTitle })
-//       });
-//     } catch (error) {
-//       console.error('Error updating note title:', error);
-//     }
-//   };
+    const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/createNote`;
 
-//   const updateNoteDescription = async (newDescription) => {
-//     try {
-//       const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteDescription/${id}`, {
-//         method: 'PUT',
-//         headers: {
-//           'Authorization': `Bearer ${token}`,
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ description: newDescription })
-//       });
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        title: noteTitle,
+        description: noteDescription
+      })
+    });
 
-//     } catch (error) {
-
-//       console.error('Error updating note description:', error);
-//     }
-//   };
+    if (response.status !== 201) {
+      Alert.alert('Error', 'There was an error creating your note.');
+      return navigation.navigate('NotePage');
+    }
+   
+    navigation.navigate('NotePage');
+  }
 
   useEffect(() => {
     getToken();
@@ -66,30 +55,32 @@ const NewNote = (arg) =>{
   return (
     <View style={style.content}>
       <View style={style.contentTitle}>
-        <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
+        <TouchableOpacity onPress={handleBackButtonClick}>
           <Image style={style.img} source={require('../../assets/back.png')} />
         </TouchableOpacity>
         <TextInput
             style={style.text}
-            placeholder="Título"
+            placeholder="Title"
             // value={''}
             // onChangeText={''}
+            onChangeText={e => setNoteTitle(e)} 
             keyboardType="default"
         />
       </View>
       <View style={style.contentText}>
         <TextInput
           style={style.info}
-          placeholder="Escribe tu nota aquí"
+          placeholder="Write your note here..."
           multiline={true}
         //   value={''}
         //   onChangeText={''}
+          onChangeText={e => setNoteDescription(e)}
           keyboardType="default"
           numberOfLines={10}
         />
       </View>
       <View style={{ marginTop: 20 }}>
-        <Text style={{ color: '#E97451', fontWeight: "bold" }}>Caracteres: 0/{maxCharacters}</Text>
+        <Text style={{ color: '#E97451', fontWeight: "bold" }}>{noteDescription.length}/{maxCharacters}</Text>
       </View>
     </View>
   );

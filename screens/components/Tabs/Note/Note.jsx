@@ -25,6 +25,18 @@ const Note = () => {
             setInfo(info);
     }
 
+    handleDeleteNote = async (id) => {
+        const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        });
+        
+        if(response.status !== 200) return Alert.alert("Error", "Something went wrong deleting the note.");
+    }
+
     useEffect(() => {
             getToken();
     }, []);
@@ -59,7 +71,7 @@ const Note = () => {
                             <View style={style.button}>
                                 <TouchableOpacity
                                 style={style.btn}
-                                onPress={() => Alert.alert("Delete")}
+                                onPress={() => handleDeleteNote(info.id)}
                                 >
                                 <Image
                                     source={require('../../../../assets/delete-icon.png')}

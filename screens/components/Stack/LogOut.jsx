@@ -7,7 +7,6 @@ const LogOut = () =>{
     const navigation = useNavigation();
     const removeToken = async () =>{
         await AsyncStorage.removeItem("token");
-        alert("Goodbye");
         navigation.navigate("Login");
     }
 

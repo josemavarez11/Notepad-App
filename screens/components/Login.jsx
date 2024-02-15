@@ -17,6 +17,10 @@ const Login = () => {
         await AsyncStorage.setItem("token" , token)
     }
 
+    const saveUsername = async (username) => {
+        await AsyncStorage.setItem("username", username);
+    }
+
     const handleValidacion = () =>{
 
         if(username ==="" || password === ""){
@@ -72,6 +76,7 @@ const Login = () => {
             // console.log(response.token);
             if(response.token) {
                 await saveToken(response.token);
+                await saveUsername(username);
                 navigation.navigate('NotePage');
             } else {
                 Alert.alert("Error", "Invalid username or password");

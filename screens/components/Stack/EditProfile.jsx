@@ -13,13 +13,18 @@ const EditProfile = () =>{
     const[ emailBox, setEmailBox] = useState("");
     const[ passwordBox, setPasswordBox] = useState("");
 
+    const [username, setUsername] = useState("");
     const [token, setToken] = useState("");
 
     const getToken = async () => {
         const token = await AsyncStorage.getItem("token");
         setToken(token);
-        // await getGroups(token);
     };
+
+    const getUsername = async () => {
+        const username = await AsyncStorage.getItem("username");
+        setUsername(username);
+    }
 
     const handleValidation = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -144,6 +149,7 @@ const EditProfile = () =>{
 
     useEffect(() => {
         getToken();
+        getUsername();
     }, []);
 
     return (
@@ -154,7 +160,8 @@ const EditProfile = () =>{
                     style={style.img}
                 />
                 <View style={style.textContent}>
-                    <Text style={style.Titletext}>Mario</Text>
+                    <Text style={style.Titletext}>Pedro</Text>
+                    {/* <Text style={style.Titletext}>{username}</Text> */}
                 </View>
             </View>
 

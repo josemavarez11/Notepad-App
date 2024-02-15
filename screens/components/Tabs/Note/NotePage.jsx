@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-nat
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
-import NewNote from "../../NewNote";
 import { useNavigation } from "@react-navigation/native";
 
 const NotePage = () =>{

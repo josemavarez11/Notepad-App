@@ -5,10 +5,10 @@ import { NavigationContainer, DefaultTheme} from "@react-navigation/native";
 
 
 //screems
+import NewNote from "./screens/components/newNote";
 import NotePage from "./screens/components/Tabs/Note/NotePage";
 import GroupPage from "./screens/components/Tabs/Group/GroupPage";
 import Profile from "./screens/components/Tabs/Profile";
-import Theme from "./screens/components/Stack/Theme";
 import EditProfile from "./screens/components/Stack/EditProfile";
 import Delete from "./screens/components/Stack/Delete";
 import LogOut from "./screens/components/Stack/LogOut";
@@ -20,7 +20,6 @@ import Nav from "./screens/components/Nav";
 import NotesGroup from "./screens/components/Tabs/Group/NoteGroup";
 import GroupNote from "./screens/components/Tabs/Group/GroupNote";
 import ContentGroup from "./screens/components/Tabs/Group/ContentGroup";
-import NewNote from "./screens/components/NewNote";
 
 
 //icons
@@ -173,6 +172,7 @@ const MyStack = () => {
                 headerShown: false
             }}
         />
+
 
  
         </ProfileStack.Navigator>

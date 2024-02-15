@@ -35,7 +35,9 @@ const Note = () => {
             id={info.id}
             renderItem={({ item: info}) => (
                
-                    
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate("NotesUser", {info})}
+                    >
                     <View style={style.contentNote}>
                         <View key={info.id} style={style.note}>
 
@@ -46,15 +48,14 @@ const Note = () => {
                                 />
                             </View>
 
+                            
                             <View style={style.contentBtn}>
-                                <TouchableOpacity
-                                onPress={() => navigation.navigate("NotesUser", {info})}
-                                >
-                                <Text style={{ color: "#E97451"}}>{info.title}</Text>
-                               </TouchableOpacity>
+                                <View><Text style={{ color: "#E97451"}}>{info.title}</Text></View>
+                               
 
                                 {/* Boton de delete */}
                             </View>
+                            
                             <View style={style.button}>
                                 <TouchableOpacity
                                 style={style.btn}
@@ -67,6 +68,7 @@ const Note = () => {
                                </View>
                         </View>
                     </View>
+                    </TouchableOpacity>
                     
             )}
             keyExtractor={(item) => item.name}

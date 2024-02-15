@@ -20,6 +20,7 @@ import Nav from "./screens/components/Nav";
 import NotesGroup from "./screens/components/Tabs/Group/NoteGroup";
 import GroupNote from "./screens/components/Tabs/Group/GroupNote";
 import ContentGroup from "./screens/components/Tabs/Group/ContentGroup";
+import NewGroup from "./screens/components/NewGroup";
 
 
 //icons
@@ -168,6 +169,14 @@ const MyStack = () => {
         <ProfileStack.Screen
             name="NewNote"
             component={NewNote}
+            options={{ 
+                headerShown: false
+            }}
+        />
+
+        <ProfileStack.Screen
+            name="NewGroup"
+            component={NewGroup}
             options={{ 
                 headerShown: false
             }}

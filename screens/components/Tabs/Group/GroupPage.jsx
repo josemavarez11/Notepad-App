@@ -2,13 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image} from "react-native";
 import Group from "./Group";
 import Nav from "../../Nav";
+import { useNavigation } from "@react-navigation/native";
 
 const GroupPage = () =>{
+    const navigation = useNavigation();
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
             <View style={style.contentBtn}>
                 <TouchableOpacity
                     style={style.btn}
+                    onPress={() => navigation.navigate('NewGroup')}
                 >
                     <Image
                     style={style.img}

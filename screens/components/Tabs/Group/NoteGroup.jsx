@@ -41,7 +41,6 @@ const NoteGroup = (arg) => {
             data={arg.route.params.data}
             // id={infoData.id}
             renderItem={({ item: infoData}) => (
-                // <View style={{height: '100%', backgroundColor: 'blue'}}>
                         <View style={style.contentNote}>
                             <View style={style.note}>
 

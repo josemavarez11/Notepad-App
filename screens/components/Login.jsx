@@ -17,6 +17,12 @@ const Login = () => {
         await AsyncStorage.setItem("token" , token)
     }
 
+    const getToken = async () =>{
+        const token = await AsyncStorage.getItem("token");
+        setToken(token);
+        if(token) navigation.navigate('NotePage');
+    }
+
     const saveUsername = async (username) => {
         await AsyncStorage.setItem("username", username);
     }
@@ -58,10 +64,8 @@ const Login = () => {
 
     const handleClick = async (e) => {
         (e).preventDefault();
-        if(!handleValidacion()){
-            return;
-        }
-        
+
+        if(!handleValidacion())return;
         
         const endpoint = '/auth/login';
         const headersLogin = {
@@ -73,10 +77,12 @@ const Login = () => {
         }
         try {
             const response = await Fercho({ endpoint, method: 'POST', body: bodyLogin, headers: headersLogin});
-            // console.log(response.token);
+            
             if(response.token) {
                 await saveToken(response.token);
                 await saveUsername(username);
+                // setUsername("");
+                // setPassword("");
                 navigation.navigate('NotePage');
             } else {
                 Alert.alert("Error", "Invalid username or password");
@@ -87,13 +93,6 @@ const Login = () => {
     }
 
     useEffect(() =>{
-        const getToken = async () =>{
-            const token = await AsyncStorage.getItem("token");
-            setToken(token);
-            if(token){
-                navigation.navigate('NotePage');
-            }
-        }
         getToken();
     }, [])
 
@@ -124,6 +123,7 @@ const Login = () => {
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setUsername(e)}
                     minLength={5}
+                    defaultValue=""
                 
                 />
                 <TextInput 
@@ -132,6 +132,7 @@ const Login = () => {
                     style={styles.input} 
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setPassword(e)}
+                    defaultValue=""
                     // minLength={8}
                    
                 />

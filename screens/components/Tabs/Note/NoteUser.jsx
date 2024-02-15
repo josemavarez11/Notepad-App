@@ -4,69 +4,77 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 const NotesUser = (arg) =>{
   const { title, description, id } = arg.route.params.info;
   const navigation = useNavigation();
   const [note, setNote] = useState(description);
+  const [noteTitle, setNoteTitle] = useState(title);
   const [token, setToken] = useState("");
   const maxCharacters = 250;
 
-  
-  const getToken = async () =>{
+  const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
     setToken(token);
   }
 
-  const handleTextChange = (e) => {
-    if(e.length <= maxCharacters) {
-      setNote(e);
-    }
-  };
-
-  const updateNoteTitle = async (newTitle) => {
-    try {
-      const token = "your_token_here"; 
-      const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteTitle/${id}`, {
+  const handleBackButtonClick = async () => {
+    if(note === description && noteTitle === title) return navigation.navigate('NotePage');;
+    
+    if(note !== description ){
+      const urlUpdateNoteDescription = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteDescription`
+      const response = await fetch(urlUpdateNoteDescription, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title: newTitle })
+        body: JSON.stringify({ noteID: id, newDescription: note })
       });
-    } catch (error) {
-      console.error('Error updating note title:', error);
-    }
-  };
 
-  const updateNoteDescription = async (newDescription) => {
-    try {
-      const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteDescription/${id}`, {
+      if(response.status !== 200){
+        navigation.navigate('NotePage');
+        Alert.alert("Error", `Something went wrong updating note ${noteTitle}`);
+      }
+
+      return navigation.navigate('NotePage');
+    }
+    
+    if(noteTitle !== title ){
+      const urlUpdateNoteTitle = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/updateNoteTitle`
+      const response = await fetch(urlUpdateNoteTitle, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ description: newDescription })
+        body: JSON.stringify({ noteID: id, newTitle: noteTitle })
       });
 
-    } catch (error) {
+      if(response.status !== 200){
+        navigation.navigate('NotePage');
+        Alert.alert("Error", `Something went wrong updating title of ${title}`);
+      }
 
-      console.error('Error updating note description:', error);
+      return navigation.navigate('NotePage');
     }
-  };
+  }
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
   return (
     <View style={style.content}>
       <View style={style.contentTitle}>
-        <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
+        <TouchableOpacity onPress={handleBackButtonClick}>
           <Image style={style.img} source={require('../../../../assets/back.png')} />
         </TouchableOpacity>
         <TextInput
           style={style.text}
-          value={title}
-          onChangeText={updateNoteTitle}
+          value={noteTitle}
+          onChangeText={(e) => {
+            setNoteTitle(e);
+          }}
           keyboardType="default"
         />
       </View>
@@ -76,7 +84,10 @@ const NotesUser = (arg) =>{
           placeholder="Escribe tu nota aquí"
           multiline={true}
           value={note}
-          onChangeText={handleTextChange}
+          onChangeText={(e) => {
+            if(e.length <= maxCharacters) setNote(e);
+          }}
+          maxLength={maxCharacters}
           keyboardType="default"
           numberOfLines={10}
         />

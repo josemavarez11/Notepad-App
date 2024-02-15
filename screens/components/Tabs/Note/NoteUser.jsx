@@ -68,6 +68,7 @@ const NotesUser = (arg) =>{
           value={title}
           onChangeText={updateNoteTitle}
           keyboardType="default"
+          maxLength={28}
         />
       </View>
       <View style={style.contentText}>
@@ -98,14 +99,14 @@ const style = StyleSheet.create({
     contentTitle:{
         display: "flex",
         flexDirection: "row",
-        gap: 120,
+        width: '90%',
+        justifyContent: "space-between",
         marginBottom: 30,
     },
     contentText:{
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        // backgroundColor: 'red',
         height: '85%',
         width: '90%',
 
@@ -131,7 +132,7 @@ const style = StyleSheet.create({
       alignItems: "flex-end",
       width: "90%",
       marginTop: 10,
-      // backgroundColor: 'black' 
+
     }
 })
 export default NotesUser;

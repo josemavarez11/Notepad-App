@@ -99,9 +99,7 @@ const style = StyleSheet.create({
         flexDirection: "row",
         width: "90%",
         justifyContent: "space-between",
-        // gap: 120,
         marginBottom: 30,
-        // backgroundColor: 'red'
     },
     contentText:{
         display: "flex",

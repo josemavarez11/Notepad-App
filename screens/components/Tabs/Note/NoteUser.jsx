@@ -3,8 +3,11 @@ import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, Alert} from
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
+
 
 const NotesUser = (arg) =>{
+  const Focus = useIsFocused();
   const { title, description, id } = arg.route.params.info;
   const navigation = useNavigation();
   const [note, setNote] = useState(description);
@@ -60,8 +63,10 @@ const NotesUser = (arg) =>{
   }
 
   useEffect(() => {
-    getToken();
-  }, []);
+    if(Focus){
+      getToken()
+    }
+  }, [Focus]);
 
   return (
     <View style={style.content}>

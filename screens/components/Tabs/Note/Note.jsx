@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
+
 
 const Note = () => {
+    const Focus = useIsFocused();
     const [info, setInfo] = useState([]);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
@@ -26,20 +29,28 @@ const Note = () => {
     }
 
     handleDeleteNote = async (id) => {
-        const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
+        try {
+            const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
         const response = await fetch(url, {
             method: 'DELETE',
             headers: {
                 'authorization': `Bearer ${token}`
             }
         });
+        } catch (error) {
+            console.log(error);
+            alert("Something went wrong deleting the note.")
+        }
         
-        if(response.status !== 200) return Alert.alert("Error", "Something went wrong deleting the note.");
+        // navigation.navigate("NotePage");
+      
     }
 
     useEffect(() => {
+        if (Focus){
             getToken();
-    }, []);
+        }
+    }, [Focus]);
 
     return (
         <FlatList

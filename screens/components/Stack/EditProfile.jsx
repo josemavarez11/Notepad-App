@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet,TouchableOpacity, Image, Modal, TextInput} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useState, useEffect} from "react";
-import { Alert } from "react-native-web";
+import { Alert } from "react-native";
+
 
 const EditProfile = () =>{
     const [viewUser, setViewUser] = useState(false);
@@ -30,7 +31,7 @@ const EditProfile = () =>{
     const handleValidation = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-        if(username ==="" || password === "" || email === "" || password2 === ""){
+        if(usernameBox === "" || password === "" || email === "" ){
             Alert.alert("Error","You must fill all the fields",[{
                 text: "Ok",
                 onPress: () => console.log("Alert closed")
@@ -60,10 +61,10 @@ const EditProfile = () =>{
     }
     const handleUsernameSave = async () => {
         handleValidation();
-        if(usernameBox === "") {
-            setViewUser(false);
-            return Alert.alert("Username is required");
-        }
+        // if(usernameBox === "") {
+        //     setViewUser(false);
+        //     return alert("username is required");
+        // }
 
         try {
             const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/users/updateUsername`
@@ -90,10 +91,14 @@ const EditProfile = () =>{
 
     const handleEmailSave = async () => {
         handleValidation();
-        if(emailBox === "") {
-            setViewEmail(false);
-            return console.log("Email is required"); //hacer otra cosa que no sea un console log
-        }
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        // if(emailBox === "") {
+        //     setViewEmail(false);
+        //     return alert("email is required") //hacer otra cosa que no sea un console log
+        // }
+        // if (emailRegex.test(emailBox) === false) {
+        //     return alert("Invalid email");
+        // }
         
         try {
             const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/users/updateEmail`
@@ -120,10 +125,10 @@ const EditProfile = () =>{
 
     const handlePasswordSave = async () => {
         handleValidation();
-        if(passwordBox === "") {
-            setViewPassword(false);
-            return console.log("Password is required"); //hacer otra cosa que no sea un console log
-        }
+        // if(passwordBox === "") {
+        //     setViewPassword(false);
+        //     return alert("Password is required"); //hacer otra cosa que no sea un console log
+        // }
 
         try {
             const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/users/updatePassword`;

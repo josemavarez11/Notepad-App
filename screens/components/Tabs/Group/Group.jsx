@@ -32,6 +32,7 @@ const Group = () => {
   };
 
   const getNotesCategory = async (id) => {
+    console.log(id);
     const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory?categoryID=${id}`;
     const response = await fetch(url,
       {

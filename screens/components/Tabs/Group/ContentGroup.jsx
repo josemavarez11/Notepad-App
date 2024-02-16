@@ -24,7 +24,7 @@ const ContentGroup = () =>{
 }
 
 const style = StyleSheet.create({
-    text: {
+    text: {                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         fontSize: 25,
         textAlign: "center",
         marginTop: "10%",

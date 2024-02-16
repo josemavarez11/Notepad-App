@@ -180,6 +180,8 @@ const EditProfile = () =>{
 
             <Modal
                 animationType="slide"
+                // onDismiss={() => console.log("close")}
+                // onShow={() => console.log("show")}
                 transparent
                 visible={viewUser}
             >

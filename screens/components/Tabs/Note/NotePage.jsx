@@ -1,29 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign } from '@expo/vector-icons';
-import { useState } from "react";
-
 
 const NotePage = () =>{
-    const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
     return (
-        
         <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
             <View style={style.contentBtn}>
-
-                <View style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    gap: 10,
-                    marginLeft: 15,
-                }}>
                 <TouchableOpacity
                     style={style.btn}
                     onPress={() => navigation.navigate('NewNote')}
@@ -32,13 +18,6 @@ const NotePage = () =>{
                         source={require('../../../../assets/add-note.png')}
                     />
                 </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={style.btn}
-                >
-                 <AntDesign name="filter" size={24} color="#E97451" />
-                    </TouchableOpacity>
-                </View>
             
                 <Text style={style.text}>Notes</Text>
                 

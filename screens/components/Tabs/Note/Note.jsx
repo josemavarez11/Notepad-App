@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert} from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Modal} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
+import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import Pop from "../../Pop";
 
 
 const Note = () => {
@@ -10,6 +13,7 @@ const Note = () => {
     const [info, setInfo] = useState([]);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
 
     const getToken = async () =>{
         const token = await AsyncStorage.getItem("token");
@@ -42,7 +46,7 @@ const Note = () => {
             console.log(error);
             alert("Something went wrong deleting the note.")
         }
-        
+        setModalVisible(false);
         // navigation.navigate("NotePage");
     }
 
@@ -53,6 +57,7 @@ const Note = () => {
     }, [Focus]);
 
     return (
+        <View>
         <FlatList
             data={info}
             id={info.id}
@@ -74,31 +79,79 @@ const Note = () => {
                             
                             <View style={style.contentBtn}>
                                 <View><Text style={{ color: "#E97451"}}>{info.title}</Text></View>
-                               
-
-                                {/* Boton de delete */}
+                                
                             </View>
                             
-                                <View style={style.button}>
-                                    <TouchableOpacity
-                                    style={style.btn}
-                                    onPress={() => handleDeleteNote(info.id)}
-                                    >
-                                    <Image
-                                        source={require('../../../../assets/delete-icon.png')}
-                                        />
-                                    </TouchableOpacity>
+                            <View style={style.button}>
+                                <TouchableOpacity
+                                onPress={() => setModalVisible(true)} 
+                                >
+                              <AntDesign name="ellipsis1" size={35} color="#E97451" />
+                                    
+                                </TouchableOpacity>
+                                <Modal
+                                transparent
+                                visible={modalVisible}
+                                animationType="slide"
+                                >
+                                    <View style={{
+                                        flex: 1,
+                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                        justifyContent: "flex-end",
+                                        alignItems: "center",
+                                    }}>
+                                        
+                                        <View style={{
+                                            height: '25%',
+                                            width: '100%',
+                                            backgroundColor: "rgba(255,255,255,1)",
+                                            borderTopEndRadius: 50,
+                                            borderTopStartRadius: 50,
+                                        }}>
+                                            <TouchableOpacity style={{marginLeft: 380, marginTop: 20}}
+                                                onPress={() => setModalVisible(false)}
+                                            >
+                                                <Feather name="x" size={24} color="#E97451" />
+                                            </TouchableOpacity>
+                                        <View style={style.c}>
+                                            <TouchableOpacity
+                                                onPress={() => handleDeleteNote(info.id)}
+                                            >
+                                                <Text style={style.txt}>Add To Category</Text>
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity
+                                                // style={style.btns}
+                                                onPress={() => setModalVisible(false)}
+                                            >
+                                                <Text style={style.txt}>Add Priority</Text>
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity
+                                                // style={style.btns}
+                                                onPress={() => setModalVisible(false)}
+                                            >
+                                                <Text style={style.txtD}>Delete Note</Text>
+                                            </TouchableOpacity>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </Modal>
                                </View>
                         </View>
-                    </View>
+                        </View>
+                            
                     </TouchableOpacity>
-                    
+
+                
             )}
             keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}r
             style={{ height: "100%" }}
         />
+        
+        </View>
     );
 };
 
@@ -136,19 +189,11 @@ const style = StyleSheet.create({
         height: 26,
         width: 26,
     },
-    btn:{
-        // marginLeft: 30,
-        // backgroundColor: "red",
-        // width: 40,
-        // height: 40,
-        // position: "relative",
-    },
     contentBtn:{
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "blue",
         marginRight: 20,
     },
     button:{
@@ -156,11 +201,35 @@ const style = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "red",
         position: "absolute",
         right: 0,
         marginRight: 20,
+    },
+    btns:{
+        backgroundColor: "#FAE0C6",
+        padding: 10,
+        width: 150,
+        borderRadius: 15,
+        display: "flex",
+        alignItems: "center",
+    },
+    c:{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "2%",
+        gap: 35,
+    },
+    txt:{
+        fontSize: 15,
+        color: "#E97451",
+    },
+    txtD:{
+        fontSize: 15,
+        color: "red",
     }
+
 });
 
 export default Note;

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 
 const Group = () => {
   const navigation = useNavigation();
   const [info, setInfo] = useState([]);
   const [token, setToken] = useState("");
+  const Focus = useIsFocused();
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -25,6 +27,7 @@ const Group = () => {
       }
     );
     const info = await response.json();
+    console.log(info);
     setInfo(info);
   };
 
@@ -40,14 +43,16 @@ const Group = () => {
       }
     );
     const data = await response.json();
-      // console.log(data);
-      navigation.navigate("NotesGroup", { data });
+      console.log(data);
+      console.log(info)
+      navigation.navigate("NotesGroup", { data, info });
   };
 
   useEffect(() => {
-    getToken();
-    // getNotesCategory();
-  }, []);
+    if (Focus) {
+      getToken();
+    }
+  }, [Focus]);
 
   return (
     <FlatList
@@ -59,13 +64,13 @@ const Group = () => {
               <View style={style.circle}>
                 <Image source={require("../../../../assets/icon-group.png")} />
               </View>
-              {/*  */}
+
               
                 <View>
                   <Text style={style.text}>{item.name}</Text>
                 </View>
               
-              {/*  */}
+
             </View>
 
             <View style={style.button}>
@@ -93,13 +98,16 @@ const style = StyleSheet.create({
   contentNote: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 10,
     marginTop: 10,
+    marginRight: 10,  
   },
   note: {
-    backgroundColor: "#FAF0E8",
-    width: "90%",
-    height: 160,
+    backgroundColor: "#E97465",
+    width: "80%",
+    height: 140,
     borderRadius: 15,
     display: "flex",
     justifyContent: "flex-start",
@@ -114,15 +122,15 @@ const style = StyleSheet.create({
     borderRadius: 62,
     backgroundColor: "#FAE0C6",
     marginLeft: 15,
-    marginTop: 25,
+    marginTop: 15,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    marginTop: 70,
+    marginTop: 60,
     fontSize: 20,
-    color: "#E97451",
+    color: "#FAE0C6",
     fontWeight: "bold",
   },
   button:{
@@ -130,10 +138,11 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "red",
+    backgroundColor: "blue",
     position: "absolute",
     right: 0,
-    marginRight: 20,
+    marginRight: 50,
+    borderRadius: 25
 }
 });
 

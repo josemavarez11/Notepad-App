@@ -5,9 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Constants, statusBarHeight } from "expo-constants";
 
 const NoteGroup = (arg) => {
-    const title = 'name of the group'
-    const [noteTitle, setNoteTitle] = useState(title);
-    const [info, setInfo] = useState([]);
+    const title = arg.route.params.info[0].name;
+    const [cateTitle, setCateTitle] = useState(title);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
 
@@ -28,9 +27,9 @@ const NoteGroup = (arg) => {
             </TouchableOpacity>
             <TextInput
             style={style.text}
-            value={noteTitle}
+            value={cateTitle}
             onChangeText={(e) => {
-                setNoteTitle(e);
+                setCateTitle(e);
             }}
             keyboardType="default"
             maxLength={28}
@@ -39,7 +38,6 @@ const NoteGroup = (arg) => {
         <View style={style.b}>
         <FlatList
             data={arg.route.params.data}
-            // id={infoData.id}
             renderItem={({ item: infoData}) => (
                         <View style={style.contentNote}>
                             <View style={style.note}>
@@ -53,9 +51,9 @@ const NoteGroup = (arg) => {
 
                                 <View style={style.contentBtn}>
                                     <TouchableOpacity
-                                    onPress={() => navigation.navigate("NotesUser", {info})}
+                                    onPress={() => navigation.navigate("NotePage", {infoData})}
                                     >
-                                    <Text style={{ color: "#E97451"}}>{infoData.title}</Text>
+                                    <Text style={{ color: "#E97451"}}>{title}</Text>
                                 </TouchableOpacity>
 
                                     {/* Boton de delete */}

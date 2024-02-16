@@ -115,8 +115,8 @@ const Register = () => {
                 <TouchableOpacity style={styles.buttonsS} onPress={handleSignUpClick}>
                     <Text style={styles.btnTextS}>Sign up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonsL} onPress={async() =>{navigation.navigate("Login")}}>
-                    <Text style={styles.btnTextL}>Login</Text>
+                <TouchableOpacity onPress={async() =>{navigation.navigate("Login")}}>
+                    <Text style={styles.text}>Login</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -211,6 +211,12 @@ const styles = StyleSheet.create({
       display: "flex",
       justifyContent: "center",
       width: "60%",
+    },
+    text:{
+      color: "#EB9373",
+      fontSize: 18,
+      fontWeight: "bold",
+      marginTop: 10,
     }
 
 })

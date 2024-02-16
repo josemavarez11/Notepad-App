@@ -141,7 +141,15 @@ const Login = () => {
                 <TouchableOpacity style={styles.buttons} onPress={handleClick}>
                     <Text style={styles.btnText}>Login</Text>
                 </TouchableOpacity>
+
+                <View>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                    <Text style={styles.con}>Sign up</Text>
+                </TouchableOpacity>
             </View>
+
+            </View>
+
         </View>
     );
 }
@@ -225,6 +233,13 @@ const styles = StyleSheet.create({
       margin: 15,
       marginTop: 30,
       height: 5,
+    },
+    con:{
+      color: "#EB9373",
+      fontSize: 20,
+      fontWeight: "bold",
+      marginTop: 30,
+
     }
 
 });

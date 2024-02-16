@@ -124,8 +124,10 @@ const Login = () => {
                     onChangeText={e => setUsername(e)}
                     minLength={5}
                     defaultValue=""
-                
+                    clearTextOnFocus={true}
                 />
+                
+                
                 <TextInput 
                     placeholder="Password" 
                     secureTextEntry={true}

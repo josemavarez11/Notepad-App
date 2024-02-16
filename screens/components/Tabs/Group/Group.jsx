@@ -7,9 +7,6 @@ const Group = () => {
   const navigation = useNavigation();
   const [info, setInfo] = useState([]);
   const [token, setToken] = useState("");
-  // const [info2, setInfo2] = useState("");
-
-
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -70,6 +67,17 @@ const Group = () => {
               
               {/*  */}
             </View>
+
+            <View style={style.button}>
+                <TouchableOpacity
+                  onPress={() => alert("Delete Group")}
+                >
+                    <Image
+                      source={require('../../../../assets/delete-icon.png')}
+                   />
+                </TouchableOpacity>
+            </View>
+
           </View>
           </TouchableOpacity>
       )}
@@ -117,6 +125,16 @@ const style = StyleSheet.create({
     color: "#E97451",
     fontWeight: "bold",
   },
+  button:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "red",
+    position: "absolute",
+    right: 0,
+    marginRight: 20,
+}
 });
 
 export default Group;

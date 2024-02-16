@@ -79,15 +79,15 @@ const Note = () => {
                                 {/* Boton de delete */}
                             </View>
                             
-                            <View style={style.button}>
-                                <TouchableOpacity
-                                style={style.btn}
-                                onPress={() => handleDeleteNote(info.id)}
-                                >
-                                <Image
-                                    source={require('../../../../assets/delete-icon.png')}
-                                    />
-                                </TouchableOpacity>
+                                <View style={style.button}>
+                                    <TouchableOpacity
+                                    style={style.btn}
+                                    onPress={() => handleDeleteNote(info.id)}
+                                    >
+                                    <Image
+                                        source={require('../../../../assets/delete-icon.png')}
+                                        />
+                                    </TouchableOpacity>
                                </View>
                         </View>
                     </View>

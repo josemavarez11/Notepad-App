@@ -81,6 +81,7 @@ const NotesUser = (arg) =>{
             setNoteTitle(e);
           }}
           keyboardType="default"
+          maxLength={28}
         />
       </View>
       <View style={style.contentText}>

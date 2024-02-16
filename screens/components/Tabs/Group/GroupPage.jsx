@@ -1,13 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, TextInput} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, TextInput, Alert} from "react-native";
 import Group from "./Group";
 import Nav from "../../Nav";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from "react";
 
 const GroupPage = () =>{
     const [viewModal, setViewModal] = useState(false);
+    const [newGroupName, setNewGroupName] = useState("");
+    const [token, setToken] = useState("");
     const navigation = useNavigation();
+
+    const getToken = async () =>{
+        const token = await AsyncStorage.getItem("token");
+        setToken(token);
+    }
+
+    const handleCreateButtonClick = async () => {
+        if(newGroupName.length === 0) return setViewModal(false);
+
+        const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/createCategory`
+
+        const response = await fetch(url,  {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ name: newGroupName })
+        });
+
+        if(response.status !== 201){
+            Alert.alert("Error", `Something went wrong creating ${newGroupName} group`);
+            return setViewModal(false);
+        }
+        
+        setViewModal(false);
+        navigation.navigate("GroupPage");
+    }
+
+    const handleCancelButtonClick = () => setViewModal(false);
+
+    useEffect(() =>{
+        getToken();
+    }, []);
+
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
             <View style={style.contentBtn}>
@@ -16,64 +54,60 @@ const GroupPage = () =>{
                     onPress={() => setViewModal(true)}
                 >
                     <Image
-                    style={style.img}
+                        style={style.img}
                         source={require('../../../../assets/add-group.png')}
                     />
                 </TouchableOpacity>
 
                 <Modal
-                animationType="slide"
-                transparent
-                visible={viewModal}
-            >
-
-                <View
-                    style={{flex: 1, backgroundColor: "rgba(1,1,1, 0.5)", justifyContent: "center", alignItems: "center"}}
+                    animationType="slide"
+                    transparent
+                    visible={viewModal}
                 >
                     <View
-                        style={{height: "40%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
+                        style={{flex: 1, backgroundColor: "rgba(1,1,1, 0.5)", justifyContent: "center", alignItems: "center"}}
                     >
-                        <TextInput //aplicar validación de longitud
-                            placeholder="New Group Note" 
-                            style={style.input} 
-                            placeholderTextColor={'#EB9373'}
-                            onChangeText={e => setUsernameBox(e)}
-                            minLength={5}
-                        />
-
-                        <View style={style.contentBtnPlus}>
-
-                        <TouchableOpacity
-                                style={style.btnModal}
-                                onPress={() => alert("Group Created")}
-                            >
-                                <Text style={style.textt}>Create</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={style.btnModal}
-                                onPress={() => setViewModal(false)}
-                            >
-                                <Text style={style.textt}>Cancel</Text>
-                            </TouchableOpacity>
-
-
-                        </View>
-
                         <View
-                            style={{
-                                height: 45,
-                                width: "100%",
-                                flexDirection: "row",
-                                alignItems: "flex-end",
-                                justifyContent: "center"
-                            }}
+                            style={{height: "40%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
                         >
+                            <TextInput //aplicar validación de longitud
+                                placeholder="Insert group name..." 
+                                style={style.input} 
+                                placeholderTextColor={'#EB9373'}
+                                onChangeText={e => setNewGroupName(e)}
+                                minLength={5}
+                            />
+
+                            <View style={style.contentBtnPlus}>
+                                <TouchableOpacity
+                                    style={style.btnModal}
+                                    onPress={handleCreateButtonClick}
+                                >
+                                    <Text style={style.textt}>Create</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={style.btnModal}
+                                    onPress={handleCancelButtonClick}
+                                >
+                                    <Text style={style.textt}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View
+                                style={{
+                                    height: 45,
+                                    width: "100%",
+                                    flexDirection: "row",
+                                    alignItems: "flex-end",
+                                    justifyContent: "center"
+                                }}
+                            >
+                            </View>
                         </View>
                     </View>
-                </View>
-            </Modal>
+                </Modal>
 
-                <Text style={style.text}>Group of Notes</Text>
+                <Text style={style.text}>Categories</Text>
             </View>
             <View style={style.content}>
                 

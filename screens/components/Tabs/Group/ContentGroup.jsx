@@ -7,7 +7,7 @@ import NoteGroup from "./NoteGroup";
 const ContentGroup = () =>{
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
-            <Text style={style.text}>Group of Notes</Text>
+            <Text style={style.text}>Categories</Text>
             <View style={style.content}>
                 
                 <View style={style.contentGroup}>

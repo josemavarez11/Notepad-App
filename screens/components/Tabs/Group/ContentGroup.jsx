@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet} from "react-native";
-// import Group from "./Group";
 import Nav from "../../Nav";
 import NoteGroup from "./NoteGroup";
 
@@ -9,16 +8,13 @@ const ContentGroup = () =>{
         <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>
             <Text style={style.text}>Categories</Text>
             <View style={style.content}>
-                
                 <View style={style.contentGroup}>
                     <NoteGroup />
                 </View>   
             </View>
-
             <View style={style.Nav}>
                 <Nav />
             </View>
-
         </View>
     )
 }

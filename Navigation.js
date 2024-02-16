@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, DefaultTheme} from "@react-navigation/native";
 
 
-//screems
+//screens
 import NewNote from "./screens/components/newNote";
 import NotePage from "./screens/components/Tabs/Note/NotePage";
 import GroupPage from "./screens/components/Tabs/Group/GroupPage";
@@ -22,168 +22,114 @@ import GroupNote from "./screens/components/Tabs/Group/GroupNote";
 import ContentGroup from "./screens/components/Tabs/Group/ContentGroup";
 import NewGroup from "./screens/components/NewGroup";
 
-
 //icons
 import { MaterialCommunityIcons, Feather} from '@expo/vector-icons';
-
-
-
-
 
 const ProfileStack = createNativeStackNavigator();
 
 const MyStack = () => {
     return(
-        <ProfileStack.Navigator
-            initialRouteName="Welcome"
-        >
-              <ProfileStack.Screen
-            name="Welcome"
-            component={Welcome}
-            options={{ 
-                headerShown: false
-            }}
-            />
-
-<ProfileStack.Screen
-            name="NotesUser"
-            component={NotesUser}
-            options={{ 
-                headerShown: false
-            }}
-            />
-
-<ProfileStack.Screen
-            name="Register"
-            component={Register}
-            options={{ 
-                headerShown: false
-            }}
-            />
-
-             <ProfileStack.Screen
-            name="Login"
-            component={Login}
-            options={{ 
-                headerShown: false
-            }}
+        <ProfileStack.Navigator initialRouteName="Welcome">
+            <ProfileStack.Screen
+                name="Welcome"
+                component={Welcome}
+                options={{ headerShown: false }}
             />
             <ProfileStack.Screen
-            name="NotePage"
-            component={NotePage}
-            options={{ 
-                headerShown: false
-            }}
+                name="NotesUser"
+                component={NotesUser}
+                options={{ headerShown: false }}
             />
-
-
             <ProfileStack.Screen
-            name="Profile Screen"
-            component={Profile}
-            options={{ 
-                headerShown: false
-            }}
+                name="Register"
+                component={Register}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="NotePage"
+                component={NotePage}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="Profile Screen"
+                component={Profile}
+                options={{ headerShown: false }}
             />
             <ProfileStack.Screen 
-            name="Edit Profile" 
-            component={EditProfile} 
-            options={{
-                headerBackTitleVisible: false,
-                // statusBarColor: "red"
-                headerTintColor: "#EB9373",
-                headerLargeTitleShadowVisible: false
-            }}
+                name="Edit Profile" 
+                component={EditProfile} 
+                options={{
+                    headerBackTitleVisible: false,
+                    headerTintColor: "#EB9373",
+                    headerLargeTitleShadowVisible: false
+                }}
             />
-
             <ProfileStack.Screen 
-            name="Delete Account" 
-            component={Delete} 
-            options={{
-                headerTintColor: "#EB9373",
-                headerLargeTitleShadowVisible: false
-            }}
+                name="Delete Account" 
+                component={Delete} 
+                options={{ headerTintColor: "#EB9373", headerLargeTitleShadowVisible: false }}
             />   
-
             <ProfileStack.Screen 
-            name="Group" 
-            component={GroupPage} 
-            options={{
-                tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="folder-outline" color={color} size={26} />
-                ),
-                headerShown: false
-            }}
+                name="Group" 
+                component={GroupPage} 
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="folder-outline" color={color} size={26} />
+                    ),
+                    headerShown: false
+                }}
             />   
-             <ProfileStack.Screen 
-            name="Profile" 
-            component={Profile} 
-            options={{
-                tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="folder-outline" color={color} size={26} />
-                ),
-                headerShown: false
-            }}
+            <ProfileStack.Screen 
+                name="Profile" 
+                component={Profile} 
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="folder-outline" color={color} size={26} />
+                    ),
+                    headerShown: false
+                }}
             />   
-               
-
-        <ProfileStack.Screen 
-            name="Log Out" 
-            component={LogOut} 
-            options={{
-                headerBackTitleVisible: false,
-                // statusBarColor: "red"
-                headerTintColor: "#EB9373",
-            }}
-            />   
-        
-        <ProfileStack.Screen
-            name="Nav"
-            component={Nav}
-            options={{ 
-                headerShown: false
-            }}
-        />
-
-<ProfileStack.Screen
-            name="GroupNote"
-            component={GroupNote}
-            options={{ 
-                headerShown: false
-            }}
-        />
-        <ProfileStack.Screen
-            name="NotesGroup"
-            component={NotesGroup}
-            options={{ 
-                headerShown: false
-            }}
-        />
-        <ProfileStack.Screen
-            name="ContentGroup"
-            component={ContentGroup}
-            options={{ 
-                headerShown: false
-            }}
-        />
-
-        <ProfileStack.Screen
-            name="NewNote"
-            component={NewNote}
-            options={{ 
-                headerShown: false
-            }}
-        />
-
-        <ProfileStack.Screen
-            name="NewGroup"
-            component={NewGroup}
-            options={{ 
-                headerShown: false
-            }}
-        />
-
-
- 
+            <ProfileStack.Screen 
+                name="Log Out" 
+                component={LogOut} 
+                options={{
+                    headerBackTitleVisible: false, headerTintColor: "#EB9373" }}
+            />    
+            <ProfileStack.Screen
+                name="Nav"
+                component={Nav}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="GroupNote"
+                component={GroupNote}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="NotesGroup"
+                component={NotesGroup}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="ContentGroup"
+                component={ContentGroup}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="NewNote"
+                component={NewNote}
+                options={{ headerShown: false }}
+            />
+            <ProfileStack.Screen
+                name="NewGroup"
+                component={NewGroup}
+                options={{ headerShown: false }}
+            />
         </ProfileStack.Navigator>
     )
 }
@@ -196,39 +142,37 @@ const MyTabs = () => {
             initialRouteName="Note"
             screenOptions={{
                 tabBarActiveTintColor: "#EDB381",
-            }}>
-
-            <Tab.Screen 
-            name="Group" 
-            component={GroupPage} 
-            options={{
-                tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="folder-outline" color={color} size={26} />
-                ),
-                headerShown: false
             }}
+        >
+            <Tab.Screen 
+                name="Group" 
+                component={GroupPage} 
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="folder-outline" color={color} size={26} />
+                    ),
+                    headerShown: false
+                }}
             />
-
             <Tab.Screen 
-            name="Note" 
-            component={NotePage} 
-            options={{
-                tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="note" color={color} size={26} />
-                ),
-                headerShown: false
-            }}
+                name="Note" 
+                component={NotePage} 
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="note" color={color} size={26} />
+                    ),
+                    headerShown: false
+                }}
             />
-
             <Tab.Screen 
-            name="Profile" 
-            component={MyStack} 
-            options={{
-                tabBarIcon: ({ color }) => (
-                    <Feather name="user" color={color} size={26} />
-                ),
-                headerShown: false
-            }}
+                name="Profile" 
+                component={MyStack} 
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <Feather name="user" color={color} size={26} />
+                    ),
+                    headerShown: false
+                }}
             />
         </Tab.Navigator>
     )
@@ -246,7 +190,6 @@ const PrimaryTheme = {
 export default function Navigation() {
     return (
         <NavigationContainer theme={PrimaryTheme}>
-            
             <MyStack/>
         </NavigationContainer>
     );  

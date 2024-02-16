@@ -6,7 +6,6 @@ import { useIsFocused } from "@react-navigation/native";
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
-
 const Note = () => {
     const Focus = useIsFocused();
     const [info, setInfo] = useState([]);
@@ -22,33 +21,27 @@ const Note = () => {
     }
 
     const getNotes = async(authToken) =>{
-            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                }
-            })
-            const info = await response.json();
-            setInfo(info);
+        const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getAllNotes`, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const info = await response.json();
+        setInfo(info);
     }
 
     handleDeleteNote = async (id) => {
         try {
             const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'authorization': `Bearer ${token}`
-            }
-        });
-        setModalVisible(false);
-        setInfo(info.filter((note) => note.id !== id));
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: { 'authorization': `Bearer ${token}` }
+            });
+            setModalVisible(false);
+            setInfo(info.filter((note) => note.id !== id));
         } catch (error) {
             console.log(error);
             alert("Something went wrong deleting the note.")
         }
-        
-        // navigation.navigate("NotePage");
     }
 
     useEffect(() => {
@@ -62,13 +55,11 @@ const Note = () => {
             data={info}
             id={info.id}
             renderItem={({ item: info}) => (
-               
-                    <TouchableOpacity
+                <TouchableOpacity
                     onPress={() => navigation.navigate("NotesUser", {info})}
-                    >
+                >
                     <View style={style.contentNote}>
                         <View key={info.id} style={style.note}>
-
                             <View style={style.circle}>
                                 <Image
                                     style={style.image}
@@ -79,154 +70,138 @@ const Note = () => {
                             
                             <View style={style.contentBtn}>
                                 <View><Text style={{ color: "#E97451"}}>{info.title}</Text></View>
-                               
-
                                 {/* Boton de delete */}
                             </View>
                             
-                                <View style={style.button}>
-                                    <TouchableOpacity
+                            <View style={style.button}>
+                                <TouchableOpacity
                                     style={style.btn}
                                     onPress={() =>setModalVisible(true)} 
-                                    >
-                                        <AntDesign name="ellipsis1" size={40} color="#E97451" />
-                                    </TouchableOpacity>
+                                >
+                                    <AntDesign name="ellipsis1" size={40} color="#E97451" />
+                                </TouchableOpacity>
 
-                                    <Modal
+                                <Modal
                                     animationType="fade"
                                     transparent
                                     visible={modalVisible}
-                                    >
+                                >
+                                    <View style={{
+                                        flex:1,
+                                        justifyContent: 'flex-end',
+                                        alignItems: 'center',
+                                        backgroundColor: "rgba(1,1,1,0.5)",
+                                    }}>
+                                        <View
+                                            style={{
+                                                height: '25%',
+                                                width: '100%',
+                                                backgroundColor: '#FAF0E8',
+                                                borderTopLeftRadius: 50,
+                                                borderTopRightRadius: 50,
+                                            }}
+                                        >
                                         <View style={{
-                                            flex:1,
+                                            height: 45,
+                                            width: '100%',
+                                            display: 'flex',
                                             justifyContent: 'flex-end',
-                                            alignItems: 'center',
-                                            backgroundColor: "rgba(1,1,1,0.5)",
+                                            alignItems: 'flex-start',
+                                            flexDirection: 'row',
                                         }}>
-                                            <View
-                                                style={{
-                                                    height: '25%',
-                                                    width: '100%',
-                                                    backgroundColor: '#FAF0E8',
-                                                    borderTopLeftRadius: 50,
-                                                    borderTopRightRadius: 50,
-                                                }}
+                                            <TouchableOpacity
+                                                style={{marginRight: 25, marginTop: 20}}
+                                                onPress={() => setModalVisible(false)}
+                                            >
+                                                <Feather name="x" size={30} color="#E97451" />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+                                            marginTop: '4%',
+                                            gap: 25,
+                                        }}>
+                                            <TouchableOpacity onPress={() => setAddCategory(true)}>
+                                                <Text style={{color: '#E97451', fontSize: 20}}>Add To Category</Text>
+                                            </TouchableOpacity>
+                                            <Modal
+                                                animationType="fade"
+                                                transparent
+                                                visible={addCategory} 
                                             >
                                                 <View style={{
-                                                    height: 45,
-                                                    width: '100%',
-                                                    display: 'flex',
+                                                    flex:1,
                                                     justifyContent: 'flex-end',
-                                                    alignItems: 'flex-start',
-                                                    flexDirection: 'row',
-                                                }}>
-                                                    <TouchableOpacity
-                                                        style={{marginRight: 25, marginTop: 20}}
-                                                        onPress={() => setModalVisible(false)}
-                                                    >
-                                                    <Feather name="x" size={30} color="#E97451" />
-                                                    </TouchableOpacity>
-                                                </View>
-                                                <View style={{
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
                                                     alignItems: 'center',
-                                                    flexDirection: 'column',
-                                                    marginTop: '4%',
-                                                    gap: 25,
+                                                    backgroundColor: "rgba(1,1,1,0.5)",
                                                 }}>
-
-                                                    <TouchableOpacity
-                                                    onPress={() => setAddCategory(true)}>
-                                                        <Text style={{color: '#E97451', fontSize: 20}}>Add To Category</Text>
-                                                    </TouchableOpacity>
-
-                                                    <Modal
-                                                        animationType="fade"
-                                                        transparent
-                                                        visible={addCategory} //addCategory
+                                                    <View
+                                                        style={{
+                                                            height: '25%',
+                                                            width: '100%',
+                                                            backgroundColor: '#FAF0E8',
+                                                            borderTopLeftRadius: 50,
+                                                            borderTopRightRadius: 50,
+                                                        }}
                                                     >
                                                         <View style={{
-                                                            flex:1,
+                                                            height: 45,
+                                                            width: '100%',
+                                                            display: 'flex',
                                                             justifyContent: 'flex-end',
-                                                            alignItems: 'center',
-                                                            backgroundColor: "rgba(1,1,1,0.5)",
+                                                            alignItems: 'flex-start',
+                                                            flexDirection: 'row',
                                                         }}>
-                                                            <View
-                                                                style={{
-                                                                    height: '25%',
-                                                                    width: '100%',
-                                                                    backgroundColor: '#FAF0E8',
-                                                                    borderTopLeftRadius: 50,
-                                                                    borderTopRightRadius: 50,
-                                                                }}
+                                                            <TouchableOpacity
+                                                                style={{marginRight: 25, marginTop: 20}}
+                                                                onPress={() => setAddCategory(false)}
                                                             >
-                                                                <View style={{
-                                                                    height: 45,
-                                                                    width: '100%',
-                                                                    display: 'flex',
-                                                                    justifyContent: 'flex-end',
-                                                                    alignItems: 'flex-start',
-                                                                    flexDirection: 'row',
-                                                                }}>
-                                                                    <TouchableOpacity
-                                                                        style={{marginRight: 25, marginTop: 20}}
-                                                                        onPress={() => setAddCategory(false)}
-                                                                    >
-                                                                    <Feather name="x" size={30} color="#E97451" />
-                                                                    </TouchableOpacity>
-                                                                </View>
-                                                                
-                                                                <View  style={{
-                                                                        display: 'flex',
-                                                                        justifyContent: 'center',
-                                                                        alignItems: 'center',
-                                                                        flexDirection: 'column',
-                                                                        marginTop: '3%',
-                                                                        gap: 25,
-                                                                    }}>
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>Category 1</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>Category 2</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>Category 3</Text>
-                                                                        </TouchableOpacity>
-                                                                    </View>
-                                                            </View>
+                                                                <Feather name="x" size={30} color="#E97451" />
+                                                            </TouchableOpacity>
                                                         </View>
-                                                        
-                                                    </Modal>
-
-                                                    <TouchableOpacity>
-                                                        <Text
-                                                            style={{color: '#E97451', fontSize: 20}}
-                                                        >Add Preority</Text>
-                                                    </TouchableOpacity>
-
-                                                    <TouchableOpacity
-                                                        onPress={() => handleDeleteNote(info.id)}
-                                                    >
-                                                        <Text
-                                                            style={{color: 'red', fontSize: 20}}
-                                                        >Delete Note</Text>
-                                                    </TouchableOpacity>
-
+                                                        <View  style={{
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center',
+                                                            flexDirection: 'column',
+                                                            marginTop: '3%',
+                                                            gap: 25,
+                                                        }}>
+                                                            <TouchableOpacity>
+                                                                <Text style={{color: '#E97451', fontSize: 20}}>Category 1</Text>
+                                                            </TouchableOpacity>
+                                                            <TouchableOpacity>
+                                                                <Text style={{color: '#E97451', fontSize: 20}}>Category 2</Text>
+                                                            </TouchableOpacity>
+                                                            <TouchableOpacity>
+                                                                <Text style={{color: '#E97451', fontSize: 20}}>Category 3</Text>
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                    </View>
                                                 </View>
+                                            </Modal>
+                                            <TouchableOpacity>
+                                                <Text style={{color: '#E97451', fontSize: 20}}>
+                                                    Add Priority
+                                                </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => handleDeleteNote(info.id)}>
+                                                <Text
+                                                    style={{color: 'red', fontSize: 20}}
+                                                >Delete Note
+                                                </Text>
+                                            </TouchableOpacity>
                                             </View>
                                         </View>
-
-                                    </Modal>
-
-                               </View>
+                                    </View>
+                                </Modal>
+                            </View>
                         </View>
                     </View>
-                    </TouchableOpacity>
-                    
+                </TouchableOpacity>     
             )}
             keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     image: {
         width: 120,
         height: 120,
-        marginLeft: 40,
+        marginLeft: 50,
     },
     text: {
         fontSize: 20,

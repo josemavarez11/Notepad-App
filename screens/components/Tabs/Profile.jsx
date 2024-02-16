@@ -5,8 +5,6 @@ import {useState, useEffect} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Nav from "../Nav";
 
-
-
 const Profile = () =>{
     const n = useNavigation();
     const [username, setUsername] = useState("");

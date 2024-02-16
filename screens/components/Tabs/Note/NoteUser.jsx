@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 
-
 const NotesUser = (arg) =>{
   const Focus = useIsFocused();
   const { title, description, id } = arg.route.params.info;

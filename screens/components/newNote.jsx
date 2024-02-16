@@ -4,13 +4,9 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 const NewNote = (arg) =>{
     const navigation = useNavigation();
 //   const { title, description, id } = arg.route.params.info;
-//   const navigation = useNavigation();
-//   const [note, setNote] = useState(description);
     const [token, setToken] = useState("");
     const [noteTitle, setNoteTitle] = useState("");
     const [noteDescription, setNoteDescription] = useState("");

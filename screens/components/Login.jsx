@@ -144,7 +144,7 @@ const Login = () => {
 
                 <View>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.con}>Sign up</Text>
+                    <Text style={styles.con}>Don't have a account yet?</Text>
                 </TouchableOpacity>
             </View>
 

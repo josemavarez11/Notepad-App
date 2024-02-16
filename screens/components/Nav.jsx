@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, StyleSheet, TouchableOpacity, Image} from "react-native";
+import {View, StyleSheet, TouchableOpacity, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Nav = () =>{

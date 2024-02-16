@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { Constants, statusBarHeight } from "expo-constants";
 
 const NoteGroup = (arg) => {
     const title = arg.route.params.info[0].name;

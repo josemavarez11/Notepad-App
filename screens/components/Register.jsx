@@ -1,11 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Image} from "react-native";
-import Fercho from "./Fercho.js";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
-
-//sigue habiendo un bug al entrar a la app desde register
 
 const Register = () => {
 
@@ -116,7 +112,7 @@ const Register = () => {
                     <Text style={styles.btnTextS}>Sign up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={async() =>{navigation.navigate("Login")}}>
-                    <Text style={styles.text}>Login</Text>
+                    <Text style={styles.text}>Already have an account?</Text>
                 </TouchableOpacity>
             </View>
         </View>

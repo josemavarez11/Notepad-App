@@ -4,19 +4,13 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 const NewGroup = (arg) =>{
     const navigation = useNavigation();
 //   const { title, description, id } = arg.route.params.info;
-//   const navigation = useNavigation();
-//   const [note, setNote] = useState(description);
     const [token, setToken] = useState("");
     const [noteTitle, setNoteTitle] = useState("");
     const [noteDescription, setNoteDescription] = useState("");
-    const maxCharacters = 250;
 
-  
   const getToken = async () =>{
     const token = await AsyncStorage.getItem("token");
     setToken(token);
@@ -26,7 +20,6 @@ const NewGroup = (arg) =>{
     if (noteTitle.length === 0 && noteDescription.length === 0) return navigation.navigate('NotePage');
     if (noteTitle.length === 0) return Alert.alert('Your new note requires a title!');
 
-    // Aca va el endpoint para crear el grupo
     const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/createNote`;
 
     const response = await fetch(url, {

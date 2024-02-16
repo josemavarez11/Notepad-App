@@ -37,13 +37,13 @@ const Note = () => {
                 'authorization': `Bearer ${token}`
             }
         });
+        setInfo(info.filter((note) => note.id !== id));
         } catch (error) {
             console.log(error);
             alert("Something went wrong deleting the note.")
         }
         
         // navigation.navigate("NotePage");
-      
     }
 
     useEffect(() => {

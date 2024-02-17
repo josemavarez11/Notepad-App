@@ -57,8 +57,6 @@ const NewNote = (arg) =>{
         <TextInput
             style={style.text}
             placeholder="Title"
-            // value={''}
-            // onChangeText={''}
             onChangeText={e => setNoteTitle(e)} 
             keyboardType="default"
             maxLength={28}
@@ -69,8 +67,6 @@ const NewNote = (arg) =>{
           style={style.info}
           placeholder="Write your note here..."
           multiline={true}
-        //   value={''}
-        //   onChangeText={''}
           onChangeText={e => setNoteDescription(e)}
           keyboardType="default"
           numberOfLines={10}

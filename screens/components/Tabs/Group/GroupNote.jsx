@@ -6,8 +6,6 @@ import NoteGroup from "./NoteGroup";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 
-
-
 const GroupNote = () =>{
     const Focus = useIsFocused();
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, TextInput, StyleSheet, FlatList, Image, TouchableOpacity, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
@@ -9,6 +9,7 @@ const Group = () => {
   const navigation = useNavigation();
   const [info, setInfo] = useState([]);
   const [token, setToken] = useState("");
+  const [categoryTitle, setCategoryTitle] = useState("");
   
 
   const getToken = async () => {
@@ -28,12 +29,10 @@ const Group = () => {
       }
     );
     const info = await response.json();
-    console.log(info);
     setInfo(info);
   };
 
   const getNotesCategory = async (id) => {
-    console.log(id);
     const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByCategory?categoryID=${id}`;
     const response = await fetch(url,
       {
@@ -44,10 +43,37 @@ const Group = () => {
       }
     );
     const data = await response.json();
-      console.log(data);
-      console.log(info)
-      navigation.navigate("NotesGroup", { data, info });
+    navigation.navigate("NotesGroup", { data, info });
   };
+
+  const handleDeleteCategoryClick = async (id) => {
+    const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/deleteCategory/${id}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if(response.status !== 200) return Alert.alert("Error", `Something went wrong deleting the category`);
+  }
+
+  const handleEndEditingTitle = async (id, newCategoryTitle) => {
+    const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/updateCategoryName`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        categoryID: id,
+        newName: newCategoryTitle,
+      }),
+    });
+
+    if(response.status !== 200) return Alert.alert("Error", `Something went wrong updating the category`);
+  }
 
   useEffect(() => {
     if (Focus) {
@@ -75,15 +101,19 @@ const Group = () => {
                   gap: 10,
                   marginLeft: -20,
                 }}>
-                  <Text style={style.text}>{item.name}</Text>
+                  <TextInput 
+                  style={style.text}
+                  onChangeText={e => setCategoryTitle(e)}
+                  onEndEditing={() => handleEndEditingTitle(item.id, categoryTitle)}
+                  >
+                    {item.name}
+                  </TextInput>
                 </View>
-              
-
             </View>
 
             <View style={style.button}>
                 <TouchableOpacity
-                  onPress={() => alert("Delete Group")}
+                  onPress={() => handleDeleteCategoryClick(item.id)}
                 >
                     <Image
                       source={require('../../../../assets/delete-icon.png')}
@@ -97,7 +127,7 @@ const Group = () => {
       keyExtractor={(item) => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      style={{ height: "100%", marginBottom: 100 }}
+      style={{ height: "78%" }}
     />
   );
 };

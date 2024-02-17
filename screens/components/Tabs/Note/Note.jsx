@@ -94,6 +94,7 @@ const Note = () => {
         <FlatList
             data={info}
             id={info.id}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item: info}) => (
                
                     <TouchableOpacity
@@ -358,7 +359,7 @@ const Note = () => {
                     </TouchableOpacity>
                     
             )}
-            keyExtractor={(item) => item.name}
+            //keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}r
             style={{ height: "100%" }}

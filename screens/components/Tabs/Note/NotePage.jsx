@@ -1,23 +1,111 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign, Feather } from '@expo/vector-icons';
+import { useState } from "react";
 
 const NotePage = () =>{
     const navigation = useNavigation();
+    const [modalVisible, setModalVisible] = useState(false);
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
             <View style={style.contentBtn}>
-                <TouchableOpacity
-                    style={style.btn}
-                    onPress={() => navigation.navigate('NewNote')}
-                >
-                    <Image
-                        source={require('../../../../assets/add-note.png')}
-                    />
-                </TouchableOpacity>
+
+                <View style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                    gap: 15,
+                    marginLeft: 20,
+                
+                }}>
+                    <TouchableOpacity
+                        style={style.btn}
+                        onPress={() => navigation.navigate('NewNote')}
+                    >
+                        <Image
+                            source={require('../../../../assets/add-note.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={style.btn}
+                        onPress={() => setModalVisible(true)}
+                    >
+                        <AntDesign name="filter" size={24} color="#E97451" />
+                    </TouchableOpacity>
+                    
+                    <Modal
+                                                        animationType="fade"
+                                                        transparent
+                                                        visible={modalVisible} //addCategory
+                                                    >
+                                                        <View style={{
+                                                            flex:1,
+                                                            justifyContent: 'flex-end',
+                                                            alignItems: 'center',
+                                                            // backgroundColor: "rgba(1,1,1,0.1)",
+                                                        }}>
+                                                            <View
+                                                                style={{
+                                                                    height: '25%',
+                                                                    width: '100%',
+                                                                    backgroundColor: '#FAF0E8',
+                                                                    borderTopLeftRadius: 50,
+                                                                    borderTopRightRadius: 50,
+                                                                }}
+                                                            >
+                                                                <View style={{
+                                                                    height: 45,
+                                                                    width: '100%',
+                                                                    display: 'flex',
+                                                                    justifyContent: 'flex-end',
+                                                                    alignItems: 'flex-start',
+                                                                    flexDirection: 'row',
+                                                                }}>
+                                                                    <TouchableOpacity
+                                                                        style={{marginRight: 25, marginTop: 20}}
+                                                                        onPress={() => setModalVisible(false)}
+                                                                    >
+                                                                    <Feather name="x" size={30} color="#E97451" />
+                                                                    </TouchableOpacity>
+                                                                </View>
+                                                                
+                                                                <View  style={{
+                                                                        display: 'flex',
+                                                                        justifyContent: 'center',
+                                                                        alignItems: 'center',
+                                                                        flexDirection: 'column',
+                                                                        marginBottom: 120,
+                                                                        gap: 20,
+                                                                    }}>
+                                                                        <TouchableOpacity>
+                                                                            <Text style={{color: '#E97451', fontSize: 20}}>All</Text>
+                                                                        </TouchableOpacity>
+
+                                                                        <TouchableOpacity>
+                                                                            <Text style={{color: 'green', fontSize: 20}}>Favorite</Text>
+                                                                        </TouchableOpacity>
+
+                                                                        <TouchableOpacity>
+                                                                            <Text style={{color: 'red', fontSize: 20}}>Important</Text>
+                                                                        </TouchableOpacity>
+
+                                                                        <TouchableOpacity>
+                                                                            <Text style={{color: 'gray', fontSize: 20}}>Not Important</Text>
+                                                                        </TouchableOpacity>
+                                                                    </View>
+                                                            </View>
+                                                        </View>
+                                                        
+                                                    </Modal>
+                    
+
+                </View>
             
                 <Text style={style.text}>Notes</Text>
                 

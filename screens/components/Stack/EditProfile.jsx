@@ -179,7 +179,7 @@ const EditProfile = () =>{
             </TouchableOpacity>
 
             <Modal
-                animationType="slide"
+                animationType="fade"
                 // onDismiss={() => console.log("close")}
                 // onShow={() => console.log("show")}
                 transparent
@@ -239,7 +239,7 @@ const EditProfile = () =>{
             </TouchableOpacity>
 
             <Modal
-                animationType="slide"
+                animationType="fade"
                 // onDismiss={() => console.log("close")}
                 // onShow={() => console.log("show")}
                 transparent
@@ -301,7 +301,7 @@ const EditProfile = () =>{
 
 
             <Modal
-                animationType="slide"
+                animationType="fade"
                 // onDismiss={() => console.log("close")}
                 // onShow={() => console.log("show")}
                 transparent

@@ -15,6 +15,8 @@ const Note = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [addCategory, setAddCategory] = useState(false);
     const [addPriority, setaddPriority] = useState(false);
+    const [priority, setPriority] = useState([])
+    const [category, setCategory] = useState([])
 
     const getToken = async () =>{
         const token = await AsyncStorage.getItem("token");
@@ -33,6 +35,21 @@ const Note = () => {
             setInfo(info);
     }
 
+    const getCategory = async (token) => {
+        const response = await fetch(
+          `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const category = await response.json();
+        console.log(category);
+        setCategory(category);
+      };
+
     handleDeleteNote = async (id) => {
         try {
             const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
@@ -48,6 +65,23 @@ const Note = () => {
             console.log(error);
             alert("Something went wrong deleting the note.")
         }
+    }
+
+    const getPriority = async () => {
+        try{
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/priorities/getAllPriorities`,{
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },    
+            })
+            const priority = await response.json();
+            console.log(priority);
+            setPriority(priority);
+            setaddPriority(true)
+    }catch (error){
+        console.log(error);
+        alert("Something went wrong getting the priorities.")}
     }
 
     useEffect(() => {
@@ -136,7 +170,7 @@ const Note = () => {
                                                 }}>
 
                                                     <TouchableOpacity
-                                                    onPress={() => setAddCategory(true)}>
+                                                    onPress={() => getCategory()}>
                                                         <Text style={{color: '#E97451', fontSize: 20}}>Add To Category</Text>
                                                     </TouchableOpacity>
 
@@ -184,17 +218,33 @@ const Note = () => {
                                                                         marginTop: '3%',
                                                                         gap: 25,
                                                                     }}>
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>Category 1</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>Category 2</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>Category 3</Text>
-                                                                        </TouchableOpacity>
+                                                                    <FlatList
+                                                                            data={''}
+                                                                            renderItem={({item}) => (
+                                                                                <View style={{
+                                                                                    display: 'flex',
+                                                                                    justifyContent: 'center',
+                                                                                    alignItems: 'center',
+                                                                                    flexDirection: 'column',
+                                                                                    marginTop: '1%',
+                                                                                    gap: 25,
+                                                                                }}>
+                                                                                    <TouchableOpacity key={item.id}>
+                                                                                        <Text style={style.text}>{item.description}</Text>
+                                                                                    </TouchableOpacity>
+                                                                                </View>
+                                                                            )}
+                                                                        style={{
+                                                                            height: '50%',
+                                                                            width: '80%',
+                                                                            // backgroundColor: 'red',
+                                                                            marginBottom: 10,
+                                                                            
+                                                                        
+                                                                        }}
+                                                                        showsHorizontalScrollIndicator={false}
+                                                                        showsVerticalScrollIndicator={false}
+                                                                        />
                                                                     </View>
                                                             </View>
                                                         </View>
@@ -202,7 +252,7 @@ const Note = () => {
                                                     </Modal>
 
                                                     <TouchableOpacity
-                                                        onPress={() => setaddPriority(true)}
+                                                        onPress={() => getPriority()}
                                                     >
                                                         <Text
                                                             style={{color: '#E97451', fontSize: 20}}
@@ -253,17 +303,33 @@ const Note = () => {
                                                                         marginTop: '3%',
                                                                         gap: 25,
                                                                     }}>
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: 'green', fontSize: 20}}>Favorite</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: 'red', fontSize: 20}}>Importent</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: 'gray', fontSize: 20}}>No Importent</Text>
-                                                                        </TouchableOpacity>
+                                                                        <FlatList
+                                                                            data={priority}
+                                                                            renderItem={({item}) => (
+                                                                                <View style={{
+                                                                                    display: 'flex',
+                                                                                    justifyContent: 'center',
+                                                                                    alignItems: 'center',
+                                                                                    flexDirection: 'column',
+                                                                                    marginTop: '1%',
+                                                                                    gap: 25,
+                                                                                }}>
+                                                                                    <TouchableOpacity key={item.id}>
+                                                                                        <Text style={style.text}>{item.description}</Text>
+                                                                                    </TouchableOpacity>
+                                                                                </View>
+                                                                            )}
+                                                                        style={{
+                                                                            height: '50%',
+                                                                            width: '80%',
+                                                                            // backgroundColor: 'red',
+                                                                            marginBottom: 10,
+                                                                            
+                                                                        
+                                                                        }}
+                                                                        showsHorizontalScrollIndicator={false}
+                                                                        showsVerticalScrollIndicator={false}
+                                                                        />
                                                                     </View>
                                                             </View>
                                                         </View>
@@ -358,7 +424,13 @@ const style = StyleSheet.create({
         position: "absolute",
         right: 0,
         marginRight: 20,
-    }
+    },
+    text: {
+        marginTop: 60,
+        fontSize: 20,
+        color: "#E97451",
+        fontWeight: "bold",
+    },
 });
 
 export default Note;

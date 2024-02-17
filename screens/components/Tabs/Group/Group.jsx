@@ -97,7 +97,7 @@ const Group = () => {
       keyExtractor={(item) => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      style={{ height: "100%", marginBottom: 100 }}
+      style={{ height: "78%",marginBottom: 10}}
     />
   );
 };

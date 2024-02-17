@@ -93,7 +93,6 @@ const Note = () => {
     return (
         <FlatList
             data={info}
-            keyExtractor={(item) => item.id.toString()} // Add keyExtractor prop to provide a unique key for each item
             id={info.id}
             renderItem={({ item: info}) => (
                
@@ -359,7 +358,7 @@ const Note = () => {
                     </TouchableOpacity>
                     
             )}
-            //keyExtractor={(item) => item.name}
+            keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}r
             style={{ height: "100%" }}

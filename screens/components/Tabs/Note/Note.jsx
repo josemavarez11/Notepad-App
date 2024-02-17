@@ -14,7 +14,7 @@ const Note = () => {
     const [token, setToken] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
     const [addCategory, setAddCategory] = useState(false);
-    const [addProperty, setAddProperty] = useState(false);
+    const [addPriority, setaddPriority] = useState(false);
 
     const getToken = async () =>{
         const token = await AsyncStorage.getItem("token");
@@ -48,8 +48,6 @@ const Note = () => {
             console.log(error);
             alert("Something went wrong deleting the note.")
         }
-        
-        // navigation.navigate("NotePage");
     }
 
     useEffect(() => {
@@ -204,17 +202,17 @@ const Note = () => {
                                                     </Modal>
 
                                                     <TouchableOpacity
-                                                        onPress={() => setAddProperty(true)}
+                                                        onPress={() => setaddPriority(true)}
                                                     >
                                                         <Text
                                                             style={{color: '#E97451', fontSize: 20}}
-                                                        >Add Property</Text>
+                                                        >Add Priority</Text>
                                                     </TouchableOpacity>
 
                                                     <Modal
                                                         animationType="fade"
                                                         transparent
-                                                        visible={addProperty} //addCategory
+                                                        visible={addPriority} //addCategory
                                                     >
                                                         <View style={{
                                                             flex:1,
@@ -241,7 +239,7 @@ const Note = () => {
                                                                 }}>
                                                                     <TouchableOpacity
                                                                         style={{marginRight: 25, marginTop: 20}}
-                                                                        onPress={() => setAddProperty(false)}
+                                                                        onPress={() => setaddPriority(false)}
                                                                     >
                                                                     <Feather name="x" size={30} color="#E97451" />
                                                                     </TouchableOpacity>

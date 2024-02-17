@@ -3,9 +3,19 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Alert} from "react-nat
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
 import NoteGroup from "./NoteGroup";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect } from "react";
+
 
 
 const GroupNote = () =>{
+    const Focus = useIsFocused();
+
+
+    useEffect(() => {
+        if(Focus){
+        }
+    }, [Focus]);
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
             <View style={style.contentBtn}>

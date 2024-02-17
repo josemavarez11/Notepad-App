@@ -81,8 +81,6 @@ const Login = () => {
             if(response.token) {
                 await saveToken(response.token);
                 await saveUsername(username);
-                // setUsername("");
-                // setPassword("");
                 navigation.navigate('NotePage');
             } else {
                 Alert.alert("Error", "Invalid username or password");

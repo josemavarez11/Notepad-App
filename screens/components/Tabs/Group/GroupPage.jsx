@@ -2,15 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, TextInput, Alert} from "react-native";
 import Group from "./Group";
 import Nav from "../../Nav";
-import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
+
 
 const GroupPage = () =>{
+    const Focus = useIsFocused();
     const [viewModal, setViewModal] = useState(false);
     const [newGroupName, setNewGroupName] = useState("");
     const [token, setToken] = useState("");
-    const navigation = useNavigation();
 
     const getToken = async () =>{
         const token = await AsyncStorage.getItem("token");
@@ -37,14 +38,17 @@ const GroupPage = () =>{
         }
         
         setViewModal(false);
-        navigation.navigate("GroupPage");
+        // navigation.navigate("GroupPage");
     }
 
     const handleCancelButtonClick = () => setViewModal(false);
 
     useEffect(() =>{
-        getToken();
-    }, []);
+        if(Focus){
+            getToken();
+        }
+        
+    }, [Focus]);
 
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)", height: "100%"}}>

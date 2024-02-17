@@ -5,10 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
 
 const Group = () => {
+  const Focus = useIsFocused();
   const navigation = useNavigation();
   const [info, setInfo] = useState([]);
   const [token, setToken] = useState("");
-  const Focus = useIsFocused();
+  
 
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -66,7 +67,14 @@ const Group = () => {
               </View>
 
               
-                <View>
+                <View style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 10,
+                  marginLeft: -20,
+                }}>
                   <Text style={style.text}>{item.name}</Text>
                 </View>
               
@@ -105,7 +113,7 @@ const style = StyleSheet.create({
     marginRight: 10,  
   },
   note: {
-    backgroundColor: "#E97465",
+    backgroundColor: "#FAF0E8",
     width: "80%",
     height: 140,
     borderRadius: 15,
@@ -130,7 +138,7 @@ const style = StyleSheet.create({
   text: {
     marginTop: 60,
     fontSize: 20,
-    color: "#FAE0C6",
+    color: "#E97451",
     fontWeight: "bold",
   },
   button:{
@@ -138,11 +146,9 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "blue",
     position: "absolute",
     right: 0,
     marginRight: 50,
-    borderRadius: 25
 }
 });
 

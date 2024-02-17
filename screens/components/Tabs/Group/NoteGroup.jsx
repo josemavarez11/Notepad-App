@@ -1,27 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert, TextInput} from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Modal, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
+import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const NoteGroup = (arg) => {
+    const Focus = useIsFocused();
     const title = arg.route.params.info[0].name;
     const [cateTitle, setCateTitle] = useState(title);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
 
     const getToken = async () =>{
         const token = await AsyncStorage.getItem("token");
         setToken(token);
     }
 
+    handleDeleteNote = async (id) => {
+        try {
+            const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        });
+        setModalVisible(false);
+        setInfo(info.filter((note) => note.id !== id));
+        } catch (error) {
+            console.log(error);
+            alert("Something went wrong deleting the note.")
+        }
+    }
+
     useEffect(() => {
+        if(Focus){
         getToken();
-    }, []);
+    }
+    }, [Focus]);
 
     return (
         <View style={style.max}>
             <View style={style.a}>
-            <TouchableOpacity onPress={() => navigation.navigate('NotePage')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Group')}>
                 <Image style={style.img} source={require('../../../../assets/back.png')} />
             </TouchableOpacity>
             <TextInput
@@ -50,7 +74,7 @@ const NoteGroup = (arg) => {
 
                                 <View style={style.contentBtn}>
                                     <TouchableOpacity
-                                    onPress={() => navigation.navigate("NotePage", {infoData})}
+                                    onPress={() => navigation.navigate("NotesUser", {infoData})}
                                     >
                                     <Text style={{ color: "#E97451"}}>{title}</Text>
                                 </TouchableOpacity>
@@ -60,12 +84,68 @@ const NoteGroup = (arg) => {
                                 <View style={style.button}>
                                     <TouchableOpacity
                                     style={style.btn}
-                                    onPress={() => Alert.alert("Delete")}
+                                    onPress={() => setModalVisible(true)}
                                     >
-                                    <Image
-                                        source={require('../../../../assets/delete-icon.png')}
-                                        />
+                                        <AntDesign name="ellipsis1" size={40} color="#E97451" />
                                     </TouchableOpacity>
+                                    <Modal
+                                        animationType="fade"
+                                        transparent
+                                        visible={modalVisible}
+                                    >
+                                        <View
+                                            style={{
+                                                flex:1,
+                                                justifyContent: 'flex-end',
+                                                alignItems: 'center',
+                                                backgroundColor: "rgba(1,1,1,0.5)",
+                                            }}>
+                                                <View style={{
+                                                    height: '25%',
+                                                    width: '100%',
+                                                    backgroundColor: '#FAF0E8',
+                                                    borderTopLeftRadius: 50,
+                                                    borderTopRightRadius: 50,
+                                                }}>
+                                                    <View
+                                                    style={{
+                                                        height: 45,
+                                                        width: '100%',
+                                                        display: 'flex',
+                                                        justifyContent: 'flex-end',
+                                                        alignItems: 'flex-start',
+                                                        flexDirection: 'row',
+                                                    }}>
+                                                                                                           <TouchableOpacity
+                                                        style={{marginRight: 25, marginTop: 20}}
+                                                        onPress={() => setModalVisible(false)}
+                                                    >
+                                                    <Feather name="x" size={30} color="#E97451" />
+                                                    </TouchableOpacity> 
+                                                    </View>
+                                                    <View style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                        gap: 25,
+                                                        marginTop: 20,
+                                                    }}>
+                                                        <TouchableOpacity
+                                                            // style={{marginRight: 25, marginTop: 20}}
+                                                            onPress={() => handleDeleteNote()}
+                                                        >
+                                                        <Text style={{color: "#E97451", fontSize: 20}}>Priority</Text>
+                                                        </TouchableOpacity>
+
+                                                        <TouchableOpacity>
+                                                            <Text style={{color: "red", fontSize: 20}}>Delete</Text>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                </View>
+
+                                        </View>
+
+                                    </Modal>
                                 </View>
                             </View>
                         </View>

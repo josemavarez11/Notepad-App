@@ -75,7 +75,7 @@ const GroupPage = () =>{
                             style={{height: "40%", width: "90%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", gap: 20, borderRadius: 15, padding: 10, borderColor: "#F2C3B2", borderWidth: 1}}
                         >
                             <TextInput //aplicar validación de longitud
-                                placeholder="Insert group name..." 
+                                placeholder="Category name..." 
                                 style={style.input} 
                                 placeholderTextColor={'#EB9373'}
                                 onChangeText={e => setNewGroupName(e)}

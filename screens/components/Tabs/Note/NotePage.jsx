@@ -136,7 +136,7 @@ const NotePage = () =>{
                                                                                 </View>
                                                                             )}
                                                                         style={{
-                                                                            height: '70%',
+                                                                            height: '90%',
                                                                             width: '90%',
                                                                             // backgroundColor: 'red',
                                                                             marginBottom: 10,

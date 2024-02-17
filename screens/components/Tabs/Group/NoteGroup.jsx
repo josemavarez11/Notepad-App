@@ -8,8 +8,8 @@ import { Feather } from '@expo/vector-icons';
 
 const NoteGroup = (arg) => {
     const Focus = useIsFocused();
-    const title = arg.route.params.info[0].name;
-    const [cateTitle, setCateTitle] = useState(title);
+    const title = arg.route.params.info.name;
+    //const [cateTitle, setCateTitle] = useState(title);
     const navigation = useNavigation();
     const [token, setToken] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
@@ -22,7 +22,7 @@ const NoteGroup = (arg) => {
     handleDeleteNote = async (id) => {
         try {
             const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/deleteNote/${id}`;
-        const response = await fetch(url, {
+            const response = await fetch(url, {
             method: 'DELETE',
             headers: {
                 'authorization': `Bearer ${token}`
@@ -50,10 +50,10 @@ const NoteGroup = (arg) => {
             </TouchableOpacity>
             <TextInput
             style={style.text}
-            value={cateTitle}
-            onChangeText={(e) => {
-                setCateTitle(e);
-            }}
+            value={title}
+            // onChangeText={(e) => {
+            //     setCateTitle(e);
+            // }}
             keyboardType="default"
             maxLength={28}
             />

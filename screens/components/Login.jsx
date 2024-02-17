@@ -133,7 +133,6 @@ const Login = () => {
                     placeholderTextColor={'#EB9373'}
                     onChangeText={e => setPassword(e)}
                     defaultValue=""
-                    // minLength={8}
                    
                 />
                 <TouchableOpacity style={styles.buttons} onPress={handleClick}>
@@ -142,7 +141,7 @@ const Login = () => {
 
                 <View>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.con}>Don't have a account yet?</Text>
+                    <Text style={styles.con}>Don't have an account yet?</Text>
                 </TouchableOpacity>
             </View>
 

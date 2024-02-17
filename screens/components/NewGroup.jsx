@@ -55,8 +55,6 @@ const NewGroup = (arg) =>{
         <TextInput
             style={style.text}
             placeholder="Title"
-            // value={''}
-            // onChangeText={''}
             onChangeText={e => setNoteTitle(e)} 
             keyboardType="default"
             maxLength={28}

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, FlatList, Alert} from "react-native";
 import Note from "./Note";
 import Constants  from "expo-constants";
 import Nav from "../../Nav";
@@ -10,6 +10,38 @@ import { useState } from "react";
 const NotePage = () =>{
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+    const [priority, setPriority] = useState([]);
+    const [addPriority, setaddPriority] = useState(false);
+    const [notesByPriority, setNotesByPriority] = useState([{}]);
+
+    const getPriority = async () => {
+        try{
+            const response = await fetch(`https://notepad-api-dev-hsee.3.us-1.fl0.io/api/priorities/getAllPriorities`,{
+                method: 'GET',  
+            })
+            const priority = await response.json();
+            // console.log(priority);
+            setPriority(priority);
+            setModalVisible(true)
+        }catch (error){
+            console.log(error);
+            alert("Something went wrong getting the priorities.")
+        }
+    }
+
+    const getNotesByPriority = async (priorityID) => {
+        const url = `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/notes/getNotesByPriority?priorityID=${priorityID}`
+        const response = await fetch(url, {
+            method: "GET",
+            headers: { "authorization": `Bearer ${token}` }
+        });
+
+        if(response.status !== 200) return Alert.alert("Error", "Something went wrong obtaining notes by priority.");
+
+        const data = await response.json();
+        setNotesByPriority(data);
+    }
+
     return (
         <View style={{backgroundColor: "rgba(255,255,255,0.8)"}}>
             <View style={style.contentBtn}>
@@ -34,7 +66,7 @@ const NotePage = () =>{
 
                     <TouchableOpacity
                         style={style.btn}
-                        onPress={() => setModalVisible(true)}
+                        onPress={getPriority}
                     >
                         <AntDesign name="filter" size={24} color="#E97451" />
                     </TouchableOpacity>
@@ -83,21 +115,37 @@ const NotePage = () =>{
                                                                         marginBottom: 120,
                                                                         gap: 20,
                                                                     }}>
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: '#E97451', fontSize: 20}}>All</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: 'green', fontSize: 20}}>Favorite</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: 'red', fontSize: 20}}>Important</Text>
-                                                                        </TouchableOpacity>
-
-                                                                        <TouchableOpacity>
-                                                                            <Text style={{color: 'gray', fontSize: 20}}>Not Important</Text>
-                                                                        </TouchableOpacity>
+                                                                        <FlatList
+                                                                            data={priority}
+                                                                            renderItem={({item: priorityItem}) => (
+                                                                                <View style={{
+                                                                                    display: 'flex',
+                                                                                    justifyContent: 'center',
+                                                                                    alignItems: 'center',
+                                                                                    flexDirection: 'column',
+                                                                                    marginTop: '1%',
+                                                                                    gap: 25,
+                                                                                }}>
+                                                                                    <TouchableOpacity 
+                                                                                        key={priorityItem.id}
+                                                                                        //onPress={() => handleCategoryClick(categoryItem.id, info.id)}
+                                                                                        
+                                                                                    >
+                                                                                        <Text style={style.text}>{priorityItem.description}</Text>
+                                                                                    </TouchableOpacity>
+                                                                                </View>
+                                                                            )}
+                                                                        style={{
+                                                                            height: '70%',
+                                                                            width: '90%',
+                                                                            // backgroundColor: 'red',
+                                                                            marginBottom: 10,
+                                                                            
+                                                                        
+                                                                        }}
+                                                                        showsHorizontalScrollIndicator={false}
+                                                                        showsVerticalScrollIndicator={false}
+                                                                        />
                                                                     </View>
                                                             </View>
                                                         </View>

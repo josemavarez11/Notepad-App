@@ -35,7 +35,7 @@ const Note = () => {
             setInfo(info);
     }
 
-    const getCategory = async (token) => {
+    const getCategory = async () => {
         const response = await fetch(
           `https://notepad-api-dev-hsee.3.us-1.fl0.io/api/categories/getAllCategories`,
           {
@@ -46,9 +46,9 @@ const Note = () => {
           }
         );
         const category = await response.json();
-        console.log(category);
+        setAddCategory(true);
         setCategory(category);
-      };
+    };
 
     handleDeleteNote = async (id) => {
         try {
@@ -79,11 +79,22 @@ const Note = () => {
             // console.log(priority);
             setPriority(priority);
             setaddPriority(true)
-    }catch (error){
-        console.log(error);
-        alert("Something went wrong getting the priorities.")}
+        }catch (error){
+            console.log(error);
+            alert("Something went wrong getting the priorities.")
+        }
     }
 
+    const handlePriorityClick = async (priorityID, noteID) => {
+        console.log(`noteID: ${noteID}`);
+        console.log(`priorityID: ${priorityID}`);
+    }
+
+    const handleCategoryClick = async (categoryID, noteID) => {
+        console.log(`noteID: ${noteID}`);
+        console.log(`categoryID: ${categoryID}`);
+    }
+    
     useEffect(() => {
         if (Focus){
             getToken();
@@ -220,8 +231,8 @@ const Note = () => {
                                                                         gap: 25,
                                                                     }}>
                                                                     <FlatList
-                                                                            data={''}
-                                                                            renderItem={({item}) => (
+                                                                            data={category}
+                                                                            renderItem={({item: categoryItem}) => (
                                                                                 <View style={{
                                                                                     display: 'flex',
                                                                                     justifyContent: 'center',
@@ -230,8 +241,12 @@ const Note = () => {
                                                                                     marginTop: '1%',
                                                                                     gap: 25,
                                                                                 }}>
-                                                                                    <TouchableOpacity key={item.id}>
-                                                                                        <Text style={style.text}>{item.description}</Text>
+                                                                                    <TouchableOpacity 
+                                                                                        key={categoryItem.id}
+                                                                                        onPress={() => handleCategoryClick(categoryItem._id, info.id)}
+                                                                                        
+                                                                                    >
+                                                                                        <Text style={style.text}>{categoryItem.name}</Text>
                                                                                     </TouchableOpacity>
                                                                                 </View>
                                                                             )}
@@ -306,7 +321,7 @@ const Note = () => {
                                                                     }}>
                                                                         <FlatList
                                                                             data={priority}
-                                                                            renderItem={({item}) => (
+                                                                            renderItem={({item: itemPriority}) => (
                                                                                 <View style={{
                                                                                     display: 'flex',
                                                                                     justifyContent: 'center',
@@ -315,8 +330,11 @@ const Note = () => {
                                                                                     marginTop: '1%',
                                                                                     gap: 25,
                                                                                 }}>
-                                                                                    <TouchableOpacity key={item.id}>
-                                                                                        <Text style={style.text}>{item.description}</Text>
+                                                                                    <TouchableOpacity 
+                                                                                        key={itemPriority.id}
+                                                                                       //onPress={() => handlePriorityClick(itemPriority._id)}
+                                                                                    >
+                                                                                        <Text style={style.text}>{itemPriority.description}</Text>
                                                                                     </TouchableOpacity>
                                                                                 </View>
                                                                             )}
@@ -359,7 +377,6 @@ const Note = () => {
                     </TouchableOpacity>
                     
             )}
-            //keyExtractor={(item) => item.name}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}r
             style={{ height: "100%" }}

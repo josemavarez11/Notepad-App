@@ -76,7 +76,7 @@ const Note = () => {
                 },    
             })
             const priority = await response.json();
-            console.log(priority);
+            // console.log(priority);
             setPriority(priority);
             setaddPriority(true)
     }catch (error){
